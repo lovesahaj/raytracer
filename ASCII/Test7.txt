@@ -1,0 +1,259 @@
+SCENE_SETTINGS
+background_color 0.019999999552965164 0.019999999552965164 0.03999999910593033
+background_strength 0.30000001192092896
+ambient_light 0.1 0.1 0.1
+frame_current 1
+frame_start 1
+frame_end 120
+fps 24
+max_bounces 12
+diffuse_bounces 4
+glossy_bounces 4
+transmission_bounces 12
+
+CAMERAS 1
+name DOF_Camera
+location 12.0 -10.0 6.0
+gaze -0.7442085146903992 0.6201735734939575 -0.24806934595108032
+up -0.19057175517082214 0.1588106006383896 0.9687422513961792
+focal 85.0
+sensor 36.0 24.0
+resolution 1920 1080
+dof_enabled 1
+focus_distance 16.1245154965971
+aperture_fstop 0.949999988079071
+aperture_blades 8
+camera_type PERSP
+clip_start 0.10000000149011612
+clip_end 1000.0
+LIGHTS 4
+name Fill_Area_Light
+location -6.0 -3.0 5.0
+intensity 300.0
+color 0.800000011920929 0.8999999761581421 1.0
+light_type AREA
+area_shape SQUARE
+area_size 5.0 5.0
+normal 0.022131917998194695 0.8539787530899048 -0.5198368430137634
+samples 16
+cast_shadows 1
+shadow_soft_size 0.0
+name Key_Area_Light
+location 6.0 -5.0 7.0
+intensity 800.0
+color 1.0 0.949999988079071 0.8999999761581421
+light_type AREA
+area_shape RECTANGLE
+area_size 4.0 3.0
+normal 0.2556644082069397 0.6841999888420105 -0.6830126643180847
+samples 16
+cast_shadows 1
+shadow_soft_size 0.0
+name Rim_Area_Light
+location 0.0 5.0 4.0
+intensity 400.0
+color 1.0 0.8500000238418579 0.699999988079071
+light_type AREA
+area_shape RECTANGLE
+area_size 6.0 3.0
+normal 0.0 0.9396927356719971 0.3420201241970062
+samples 16
+cast_shadows 1
+shadow_soft_size 0.0
+name Top_Area_Light
+location 0.0 0.0 9.0
+intensity 200.0
+color 1.0 1.0 1.0
+light_type AREA
+area_shape DISK
+area_size 5.0 5.0
+normal 0.0 0.0 -1.0
+samples 16
+cast_shadows 1
+shadow_soft_size 0.0
+SPHERES 2
+name Flying_Sphere
+location -6.0 -1.0 1.5
+rotation 0.0 -0.0 0.0
+scale 0.4999997019767761 0.4999998211860657 0.5
+motion_blur 1
+matrix_t0
+1.0 0.0 0.0 -6.0
+0.0 1.0 0.0 -1.0
+0.0 0.0 1.0 1.5
+0.0 0.0 0.0 1.0
+matrix_t1
+1.0 0.0 0.0 -4.800000190734863
+0.0 1.0 0.0 -1.0
+0.0 0.0 1.0 1.5
+0.0 0.0 0.0 1.0
+visible 1
+material_diffuse 0.6000000238418579 0.10000000149011612 0.800000011920929
+material_specular 0.5 0.5 0.5
+material_ambient 0.06000000238418579 0.010000000149011612 0.0800000011920929
+material_shininess 112.64000034332275
+material_glossiness 0.880000002682209
+material_reflectivity 0.8999999761581421
+material_transparency 0.0
+material_refractive_index 1.5
+name Glossy_Sphere
+location 0.0 0.0 2.0
+rotation 0.0 -0.0 0.0
+scale 1.1999998092651367 1.1999998092651367 1.2000000476837158
+motion_blur 1
+matrix_t0
+1.0 0.0 0.0 0.0
+0.0 1.0 0.0 0.0
+0.0 0.0 1.0 2.0
+0.0 0.0 0.0 1.0
+matrix_t1
+0.9986063838005066 -0.052775345742702484 0.0 0.0
+0.052775345742702484 0.9986063838005066 0.0 0.0
+0.0 0.0 1.0 2.0
+0.0 0.0 0.0 1.0
+visible 1
+material_diffuse 0.800000011920929 0.05000000074505806 0.05000000074505806
+material_specular 0.5 0.5 0.5
+material_ambient 0.0800000011920929 0.005000000074505806 0.005000000074505806
+material_shininess 121.59999990463257
+material_glossiness 0.9499999992549419
+material_reflectivity 1.0
+material_transparency 0.0
+material_refractive_index 1.5
+CUBES 1
+name Spinning_Glossy_Cube
+translation -3.5 1.0 1.5
+rotation 0.0 -0.0 0.0
+scale 0.75 0.75 0.75
+motion_blur 1
+matrix_t0
+1.0 0.0 0.0 -3.5
+0.0 1.0 0.0 1.0
+0.0 0.0 1.0 1.5
+0.0 0.0 0.0 1.0
+matrix_t1
+0.9070272445678711 -0.01760130561888218 0.4207039773464203 -3.5
+0.09613947570323944 0.9813917279243469 -0.16621509194374084 1.0
+-0.40994977951049805 0.1912078708410263 0.8918411731719971 1.5
+0.0 0.0 0.0 1.0
+visible 1
+material_diffuse 0.05000000074505806 0.20000000298023224 0.8999999761581421
+material_specular 0.5 0.5 0.5
+material_ambient 0.005000000074505806 0.020000000298023225 0.08999999761581422
+material_shininess 115.19999980926514
+material_glossiness 0.8999999985098839
+material_reflectivity 1.0
+material_transparency 0.0
+material_refractive_index 1.5
+PLANES 2
+name Back_Wall
+points 4
+-7.5 5.000000476837158 -5.0
+7.5 5.000000476837158 -5.0
+-7.5 4.999999523162842 10.0
+7.5 4.999999523162842 10.0
+visible 1
+material_diffuse 0.5 0.5 0.550000011920929
+material_specular 0.5 0.5 0.5
+material_ambient 0.05 0.05 0.0550000011920929
+material_shininess 38.400001525878906
+material_glossiness 0.30000001192092896
+material_reflectivity 0.0
+material_transparency 0.0
+material_refractive_index 1.5
+name Glossy_Ground
+points 4
+-15.0 -15.0 0.0
+15.0 -15.0 0.0
+-15.0 15.0 0.0
+15.0 15.0 0.0
+visible 1
+material_diffuse 0.800000011920929 0.800000011920929 0.800000011920929
+material_specular 0.5 0.5 0.5
+material_ambient 0.0800000011920929 0.0800000011920929 0.0800000011920929
+material_shininess 102.39999961853027
+material_glossiness 0.7999999970197678
+material_reflectivity 0.5
+material_transparency 0.0
+material_refractive_index 1.5
+TORUSES 1
+name Glossy_Gold_Torus
+location 3.5 2.0 2.0
+rotation 0.7853981852531433 -0.0 0.0
+scale 1.0 0.9999999403953552 0.9999999403953552
+major_radius 0.7999999523162842
+minor_radius 0.25
+motion_blur 1
+matrix_t0
+1.0 0.0 0.0 3.5
+0.0 0.7071067690849304 -0.7071067690849304 2.0
+0.0 0.7071067690849304 0.7071067690849304 2.0
+0.0 0.0 0.0 1.0
+matrix_t1
+0.9944295287132263 0.07453159987926483 0.07453159987926483 3.5
+0.0 0.7071067690849304 -0.7071067690849304 2.0
+-0.1054036021232605 0.7031678557395935 0.7031678557395935 2.0
+0.0 0.0 0.0 1.0
+visible 1
+material_diffuse 1.0 0.765999972820282 0.335999995470047
+material_specular 0.5 0.5 0.5
+material_ambient 0.1 0.07659999728202821 0.033599999547004704
+material_shininess 117.76000022888184
+material_glossiness 0.9200000017881393
+material_reflectivity 1.0
+material_transparency 0.0
+material_refractive_index 1.5
+CYLINDERS 1
+name Background_Cylinder
+location -2.0 3.0 1.2000000476837158
+rotation 0.0 -0.0 0.0
+scale 1.0 1.0 1.0
+radius 0.5
+depth 2.0
+motion_blur 1
+matrix_t0
+1.0 0.0 0.0 -2.0
+0.0 1.0 0.0 3.0
+0.0 0.0 1.0 1.2000000476837158
+0.0 0.0 0.0 1.0
+matrix_t1
+0.9986063838005066 -0.052756957709789276 0.0013931040884926915 -2.0
+0.052775345742702484 0.9982584118843079 -0.026360085234045982 3.0
+0.0 0.026396872475743294 0.9996515512466431 1.2000000476837158
+0.0 0.0 0.0 1.0
+visible 1
+material_diffuse 0.10000000149011612 0.800000011920929 0.30000001192092896
+material_specular 0.5 0.5 0.5
+material_ambient 0.010000000149011612 0.0800000011920929 0.030000001192092896
+material_shininess 108.79999923706055
+material_glossiness 0.8499999940395355
+material_reflectivity 0.8500000238418579
+material_transparency 0.0
+material_refractive_index 1.5
+CONES 1
+name Foreground_Cone
+location 2.0 -3.0 0.800000011920929
+rotation 0.0 -0.0 0.0
+scale 1.0 1.0 1.0
+radius 0.699999988079071
+depth 1.600000023841858
+motion_blur 1
+matrix_t0
+1.0 0.0 0.0 2.0
+0.0 1.0 0.0 -3.0
+0.0 0.0 1.0 0.800000011920929
+0.0 0.0 0.0 1.0
+matrix_t1
+0.9986063838005066 0.0 0.052775345742702484 2.0
+0.0 1.0 0.0 -3.0
+-0.052775345742702484 0.0 0.9986063838005066 0.800000011920929
+0.0 0.0 0.0 1.0
+visible 1
+material_diffuse 0.10000000149011612 0.699999988079071 0.8999999761581421
+material_specular 0.5 0.5 0.5
+material_ambient 0.010000000149011612 0.06999999880790711 0.08999999761581422
+material_shininess 115.19999980926514
+material_glossiness 0.8999999985098839
+material_reflectivity 0.8999999761581421
+material_transparency 0.0
+material_refractive_index 1.5

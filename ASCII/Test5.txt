@@ -1,0 +1,214 @@
+SCENE_SETTINGS
+background_color 0.05087608844041824 0.05087608844041824 0.05087608844041824
+background_strength 1.0
+ambient_light 0.1 0.1 0.1
+frame_current 1
+frame_start 1
+frame_end 120
+fps 24
+max_bounces 12
+diffuse_bounces 4
+glossy_bounces 4
+transmission_bounces 12
+
+CAMERAS 1
+name Main_Camera
+location 12.0 -12.0 8.0
+gaze -0.6666666865348816 0.6666666865348816 -0.3333333432674408
+up -0.23570245504379272 0.23570245504379272 0.9428088665008545
+focal 35.0
+sensor 36.0 24.0
+resolution 1920 1080
+dof_enabled 0
+focus_distance 10.0
+aperture_fstop 2.799999952316284
+aperture_blades 0
+camera_type PERSP
+clip_start 0.10000000149011612
+clip_end 1000.0
+LIGHTS 3
+name Fill_Light
+location -5.0 -3.0 6.0
+intensity 800.0
+color 0.8999999761581421 0.949999988079071 1.0
+light_type POINT
+cast_shadows 1
+shadow_soft_size 0.0
+name Key_Light
+location 6.0 -6.0 10.0
+intensity 1500.0
+color 1.0 0.949999988079071 0.8999999761581421
+light_type POINT
+cast_shadows 1
+shadow_soft_size 0.0
+name Rim_Light
+location 0.0 6.0 5.0
+intensity 1000.0
+color 1.0 0.800000011920929 0.6000000238418579
+light_type POINT
+cast_shadows 1
+shadow_soft_size 0.0
+SPHERES 2
+name Bouncing_Sphere
+location 0.0 0.0 1.0
+rotation 0.0 -0.0 0.0
+scale 0.9999994039535522 0.9999996423721313 1.0
+motion_blur 1
+matrix_t0
+1.0 0.0 0.0 0.0
+0.0 1.0 0.0 0.0
+0.0 0.0 1.0 1.0
+0.0 0.0 0.0 1.0
+matrix_t1
+1.0 0.0 0.0 0.0
+0.0 1.0 0.0 0.0
+0.0 0.0 1.0 2.0
+0.0 0.0 0.0 1.0
+visible 1
+material_diffuse 0.800000011920929 0.10000000149011612 0.10000000149011612
+material_specular 0.5 0.5 0.5
+material_ambient 0.0800000011920929 0.010000000149011612 0.010000000149011612
+material_shininess 115.19999980926514
+material_glossiness 0.8999999985098839
+material_reflectivity 0.8999999761581421
+material_transparency 0.0
+material_refractive_index 1.5
+name Flying_Sphere
+location -15.0 -2.0 3.0
+rotation 0.0 -0.0 0.0
+scale 0.5999996662139893 0.5999999046325684 0.6000000238418579
+motion_blur 1
+matrix_t0
+1.0 0.0 0.0 -15.0
+0.0 1.0 0.0 -2.0
+0.0 0.0 1.0 3.0
+0.0 0.0 0.0 1.0
+matrix_t1
+1.0 0.0 0.0 -10.714285850524902
+0.0 1.0 0.0 -2.0
+0.0 0.0 1.0 3.0
+0.0 0.0 0.0 1.0
+visible 1
+material_diffuse 0.5 0.5 0.5
+material_specular 1.0 1.0 1.0
+material_ambient 0.05 0.05 0.05
+material_shininess 32.0
+material_glossiness 0.0
+material_reflectivity 0.0
+material_transparency 0.0
+material_refractive_index 1.0
+material_emission 1.0 0.5 0.10000000149011612
+material_emission_strength 5.0
+CUBES 1
+name Spinning_Cube
+translation -4.0 0.0 1.5
+rotation 0.0 -0.0 0.0
+scale 1.0 1.0 1.0
+motion_blur 1
+matrix_t0
+1.0 0.0 0.0 -4.0
+0.0 1.0 0.0 0.0
+0.0 0.0 1.0 1.5
+0.0 0.0 0.0 1.0
+matrix_t1
+0.4253087639808655 -0.0564049631357193 0.9032889604568481 -4.0
+0.2480536252260208 0.9671028256416321 -0.0564049631357193 0.0
+-0.8703917860984802 0.2480536252260208 0.4253087639808655 1.5
+0.0 0.0 0.0 1.0
+visible 1
+material_diffuse 0.10000000149011612 0.30000001192092896 0.800000011920929
+material_specular 0.5 0.5 0.5
+material_ambient 0.010000000149011612 0.030000001192092896 0.0800000011920929
+material_shininess 102.39999961853027
+material_glossiness 0.7999999970197678
+material_reflectivity 0.800000011920929
+material_transparency 0.0
+material_refractive_index 1.5
+PLANES 1
+name Ground_Plane
+points 4
+-15.0 -15.0 0.0
+15.0 -15.0 0.0
+-15.0 15.0 0.0
+15.0 15.0 0.0
+visible 1
+material_diffuse 0.800000011920929 0.800000011920929 0.800000011920929
+material_specular 0.5 0.5 0.5
+material_ambient 0.0800000011920929 0.0800000011920929 0.0800000011920929
+material_shininess 64.0
+material_glossiness 0.5
+material_reflectivity 0.0
+material_transparency 0.0
+material_refractive_index 1.5
+TORUSES 1
+name Orbiting_Torus
+location 6.0 0.0 2.0
+rotation 0.0 -0.0 0.0
+scale 1.0 1.0 1.0
+major_radius 0.9999999403953552
+minor_radius 0.30000001192092896
+visible 1
+material_diffuse 1.0 0.765999972820282 0.335999995470047
+material_specular 0.5 0.5 0.5
+material_ambient 0.1 0.07659999728202821 0.033599999547004704
+material_shininess 115.19999980926514
+material_glossiness 0.8999999985098839
+material_reflectivity 1.0
+material_transparency 0.0
+material_refractive_index 1.5
+CYLINDERS 1
+name Rotating_Cylinder
+location 0.0 4.0 1.5
+rotation 1.5707963705062866 -0.0 0.0
+scale 1.0 1.0 1.0
+radius 0.800000011920929
+depth 3.0
+motion_blur 1
+matrix_t0
+1.0 0.0 0.0 0.0
+0.0 -4.371138828673793e-08 -1.0 4.0
+0.0 1.0 -4.371138828673793e-08 1.5
+0.0 0.0 0.0 1.0
+matrix_t1
+-0.013199585489928722 0.9999128580093384 -4.3707583330387934e-08 0.0
+-0.0 -4.371138828673793e-08 -1.0 4.0
+-0.9999128580093384 -0.013199585489928722 5.769722477566575e-10 1.5
+0.0 0.0 0.0 1.0
+visible 1
+material_diffuse 0.8999999761581421 0.6000000238418579 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.08999999761581422 0.06000000238418579 0.1
+material_shininess 128.0
+material_glossiness 1.0
+material_reflectivity 0.0
+material_transparency 1.0
+material_refractive_index 1.4500000476837158
+CONES 1
+name Moving_Cone
+location 4.0 -8.0 1.0
+rotation 0.0 -0.0 0.0
+scale 1.0 1.0 1.0
+radius 1.0
+depth 2.0
+motion_blur 1
+matrix_t0
+1.0 0.0 0.0 4.0
+0.0 1.0 0.0 -8.0
+0.0 0.0 1.0 1.0
+0.0 0.0 0.0 1.0
+matrix_t1
+1.0 0.0 0.0 4.0
+0.0 1.0 0.0 -6.400000095367432
+0.0 0.0 1.0 1.0
+0.0 0.0 0.0 1.0
+visible 1
+material_diffuse 0.5 0.5 0.5
+material_specular 1.0 1.0 1.0
+material_ambient 0.05 0.05 0.05
+material_shininess 32.0
+material_glossiness 0.0
+material_reflectivity 0.0
+material_transparency 0.0
+material_refractive_index 1.0
+material_emission 0.20000000298023224 1.0 0.30000001192092896
+material_emission_strength 3.0

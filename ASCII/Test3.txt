@@ -1,0 +1,78 @@
+SCENE_SETTINGS
+background_color 0.05087608844041824 0.05087608844041824 0.05087608844041824
+background_strength 1.0
+ambient_light 0.1 0.1 0.1
+frame_current 1
+frame_start 1
+frame_end 250
+fps 24
+max_bounces 12
+diffuse_bounces 4
+glossy_bounces 4
+transmission_bounces 12
+
+CAMERAS 1
+name Camera
+location 4.0 -4.0 1.5
+gaze -0.6834859848022461 0.6834862232208252 -0.25630736351013184
+up -0.18123674392700195 0.18123650550842285 0.9665954113006592
+focal 50.0
+sensor 36.0 24.0
+resolution 1920 1080
+dof_enabled 0
+focus_distance 10.0
+aperture_fstop 2.799999952316284
+aperture_blades 0
+camera_type PERSP
+clip_start 0.10000000149011612
+clip_end 1000.0
+LIGHTS 4
+name Light_00
+location 3.0 0.0 0.0
+intensity 400.0
+color 1.0 1.0 1.0
+light_type POINT
+cast_shadows 1
+shadow_soft_size 0.0
+name Light_01
+location 1.8369701465288538e-16 3.0 1.5
+intensity 400.0
+color 1.0 1.0 1.0
+light_type POINT
+cast_shadows 1
+shadow_soft_size 0.0
+name Light_02
+location -3.0 3.6739402930577075e-16 1.8369701465288538e-16
+intensity 400.0
+color 1.0 1.0 1.0
+light_type POINT
+cast_shadows 1
+shadow_soft_size 0.0
+name Light_03
+location -5.510910704284357e-16 -3.0 -1.5
+intensity 400.0
+color 1.0 1.0 1.0
+light_type POINT
+cast_shadows 1
+shadow_soft_size 0.0
+SPHERES 1
+name Textured_Sphere
+location 0.0 0.0 0.0
+rotation 0.3999999761581421 0.6000000238418579 1.2000000476837158
+scale 0.9999997019767761 0.6999999284744263 1.2999998331069946
+visible 1
+material_diffuse 0.6000000238418579 0.20000000298023224 0.10000000149011612
+material_specular 1.0 1.0 1.0
+material_ambient 0.06000000238418579 0.020000000298023225 0.010000000149011612
+material_shininess 11741.351320198419
+material_glossiness 0.9087129086256027
+material_reflectivity 0.020625002682209015
+material_transparency 0.0
+material_refractive_index 1.0
+material_bump_map tex3.jpg
+material_bump_strength 0.5416666865348816
+CUBES 0
+PLANES 0
+TORUSES 0
+CYLINDERS 0
+CONES 0

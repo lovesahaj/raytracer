@@ -1,0 +1,2025 @@
+SCENE_SETTINGS
+background_color 0.05087608844041824 0.05087608844041824 0.05087608844041824
+background_strength 1.0
+ambient_light 0.1 0.1 0.1
+frame_current 1
+frame_start 1
+frame_end 250
+fps 24
+max_bounces 12
+diffuse_bounces 4
+glossy_bounces 4
+transmission_bounces 12
+
+CAMERAS 1
+name Camera
+location -0.21887612342834473 -1.9492876529693604 2.8152225017547607
+gaze 1.5914438336039893e-05 0.6658647656440735 -0.7460724711418152
+up 6.660819963144604e-06 0.7460724711418152 0.6658647656440735
+focal 20.0
+sensor 36.0 24.0
+resolution 1920 1080
+dof_enabled 0
+focus_distance 10.0
+aperture_fstop 2.799999952316284
+aperture_blades 0
+camera_type PERSP
+clip_start 0.10000000149011612
+clip_end 1000.0
+LIGHTS 2
+name CameraLight
+location 2.5 -2.5 2.0
+intensity 600.0
+color 1.0 1.0 1.0
+light_type POINT
+cast_shadows 1
+shadow_soft_size 0.0
+name TopLight
+location 0.0 0.0 2.0
+intensity 800.0
+color 1.0 1.0 1.0
+light_type POINT
+cast_shadows 1
+shadow_soft_size 0.0
+SPHERES 0
+CUBES 140
+name Cube_00
+translation 0.5287643074989319 0.6708042621612549 -0.08998827636241913
+rotation 1.2337301969528198 0.03532925620675087 -1.608593225479126
+scale 0.13018789887428284 0.19263194501399994 0.06638621538877487
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_01
+translation -0.2847663164138794 -0.5799277424812317 0.07067979127168655
+rotation 1.6967500448226929 2.4718849658966064 -0.47032034397125244
+scale 0.2002568244934082 0.011607997119426727 0.22777970135211945
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_02
+translation 0.35178303718566895 0.8918426632881165 -0.031231272965669632
+rotation 0.3155314028263092 1.5657589435577393 -0.952930748462677
+scale 0.06100713834166527 0.28781014680862427 0.16020773351192474
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_03
+translation -0.12653671205043793 0.5062967538833618 0.0021421152632683516
+rotation -0.07607394456863403 -2.5418479442596436 -0.3139103055000305
+scale 0.1423739343881607 0.242410808801651 0.2035975307226181
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_04
+translation -0.07845915853977203 0.5135622024536133 0.05995377525687218
+rotation 0.030021991580724716 -2.0770270824432373 0.3007882237434387
+scale 0.2685135006904602 0.18766915798187256 0.21858945488929749
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_05
+translation -0.20347030460834503 0.7856882214546204 0.03570627421140671
+rotation -1.5130441188812256 1.588139533996582 0.8649523854255676
+scale 0.27019035816192627 0.2256600707769394 0.14765559136867523
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_06
+translation 0.6342753767967224 0.6743645668029785 0.12232770025730133
+rotation 1.7253466844558716 0.4868422746658325 1.7952829599380493
+scale 0.2320859730243683 0.16117694973945618 0.19175705313682556
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_07
+translation -0.6418731808662415 0.6013346314430237 -0.1378082036972046
+rotation 0.8694300055503845 1.4530587196350098 -1.922970175743103
+scale 0.08879738301038742 0.10271576792001724 0.1666441410779953
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_08
+translation -0.7062771916389465 0.6848958134651184 -0.16290166974067688
+rotation 0.26773369312286377 0.5292061567306519 -1.8420138359069824
+scale 0.21486155688762665 0.028626367449760437 0.12820382416248322
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_09
+translation 0.037870727479457855 -0.5666595697402954 0.04149041324853897
+rotation -1.9130853414535522 -0.9001792073249817 -1.472812533378601
+scale 0.13184161484241486 0.27240315079689026 0.1793830245733261
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_10
+translation -0.43379727005958557 -0.8168023824691772 0.01449123676866293
+rotation -1.5489615201950073 -0.9208138585090637 -0.2926057279109955
+scale 0.12031050026416779 0.011709864251315594 0.11201006174087524
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_100
+translation -0.9411541819572449 -0.20536616444587708 0.1338380128145218
+rotation 2.0644006729125977 0.9271102547645569 -0.624981701374054
+scale 0.0700756385922432 0.07262589037418365 0.2622116804122925
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_101
+translation 0.07244475185871124 0.8256112337112427 -0.14902178943157196
+rotation 0.8167646527290344 1.5749067068099976 1.0963977575302124
+scale 0.010822310112416744 0.2589377760887146 0.05195951461791992
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_102
+translation 0.21119040250778198 -0.6607514023780823 0.11844892054796219
+rotation 1.822027564048767 1.646624207496643 -1.1072765588760376
+scale 0.20170673727989197 0.017476243898272514 0.014309494756162167
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_103
+translation 0.2878653109073639 -0.9014768600463867 -0.11596938222646713
+rotation 0.163900226354599 -1.5435603857040405 -0.14925089478492737
+scale 0.06053140014410019 0.025195715948939323 0.22509822249412537
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_104
+translation 0.19601759314537048 0.6314463019371033 0.1120464950799942
+rotation -3.1174733638763428 -0.34296348690986633 0.2724705636501312
+scale 0.23562493920326233 0.15883898735046387 0.04162566363811493
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_105
+translation -0.8640639781951904 0.4080372750759125 0.048264604061841965
+rotation 2.8779659271240234 -0.22603018581867218 0.38217729330062866
+scale 0.23713582754135132 0.2614244520664215 0.16122084856033325
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_106
+translation 0.2658185660839081 -0.5433741807937622 0.1458422839641571
+rotation 3.0804500579833984 -0.5673664212226868 0.46175578236579895
+scale 0.14890475571155548 0.12646900117397308 0.20896826684474945
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_107
+translation -0.10516777634620667 -0.9854411482810974 0.15256647765636444
+rotation -1.4136161804199219 -0.8361457586288452 0.30383241176605225
+scale 0.03342923894524574 0.18640625476837158 0.029047846794128418
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_108
+translation -0.22822542488574982 -0.46529874205589294 -0.06712581217288971
+rotation -0.2908145487308502 -0.6624161005020142 -2.5184359550476074
+scale 0.10430377721786499 0.2984420359134674 0.163861483335495
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_109
+translation -0.14218392968177795 -0.9632734060287476 0.14562560617923737
+rotation -1.4516499042510986 -1.7540143728256226 1.3510297536849976
+scale 0.2135160267353058 0.2573098838329315 0.198765829205513
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_11
+translation -0.8320892453193665 0.536156952381134 0.020816251635551453
+rotation 0.6487551927566528 1.7559071779251099 -1.7629258632659912
+scale 0.13151617348194122 0.22677955031394958 0.16837836802005768
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_110
+translation -0.42107951641082764 0.8250781893730164 0.1149498000741005
+rotation -0.29217496514320374 0.5278526544570923 -2.5441508293151855
+scale 0.14095091819763184 0.07626313716173172 0.1082901805639267
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_111
+translation 0.10470838844776154 -0.565780758857727 0.14343729615211487
+rotation 0.9590586423873901 -0.48389944434165955 0.4218110144138336
+scale 0.13376155495643616 0.20288126170635223 0.11854729801416397
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_112
+translation -0.050897590816020966 -0.6436107158660889 -0.0158787053078413
+rotation 1.5003994703292847 -1.9589040279388428 0.35418781638145447
+scale 0.25121384859085083 0.037036728113889694 0.03800368681550026
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_113
+translation -0.12322049587965012 -0.6809624433517456 -0.1089618057012558
+rotation -2.3735909461975098 0.9198703169822693 1.0388648509979248
+scale 0.18007487058639526 0.1728600561618805 0.10559733211994171
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_114
+translation -0.06436049193143845 0.5134258270263672 -0.06869521737098694
+rotation 2.943035364151001 -0.6308952569961548 -0.9321345090866089
+scale 0.2275824397802353 0.26174670457839966 0.21910759806632996
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_115
+translation 0.557887613773346 -0.7661762833595276 -0.08835000544786453
+rotation 1.4089720249176025 0.6799561381340027 -0.9715474843978882
+scale 0.17759637534618378 0.0716942548751831 0.20045353472232819
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_116
+translation -0.7612663507461548 0.38933899998664856 0.19245988130569458
+rotation -1.2112640142440796 -0.9729187488555908 -0.15992861986160278
+scale 0.11659270524978638 0.2311556339263916 0.176488995552063
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_117
+translation 0.3865010440349579 -0.7090688943862915 -0.15386329591274261
+rotation 0.1649576872587204 -0.4455764889717102 -1.071529746055603
+scale 0.24734379351139069 0.18793624639511108 0.19638276100158691
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_118
+translation -0.055427778512239456 0.9872832298278809 0.18501372635364532
+rotation 1.9414080381393433 2.135181188583374 0.03836381062865257
+scale 0.08755984157323837 0.06232066452503204 0.21378262341022491
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_119
+translation 0.18169517815113068 0.6450477838516235 -0.026174496859312057
+rotation 0.8914247155189514 -2.3048481941223145 0.19262424111366272
+scale 0.26226019859313965 0.17423312366008759 0.1262274533510208
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_12
+translation -0.7919366955757141 -0.494863361120224 0.14468276500701904
+rotation 1.1255816221237183 0.6011962294578552 -2.104586124420166
+scale 0.13639242947101593 0.018417198210954666 0.107477568089962
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_120
+translation -0.5699621438980103 0.6866964101791382 0.04248354211449623
+rotation -0.9996799230575562 0.8164805769920349 1.3923286199569702
+scale 0.22637240588665009 0.07238853722810745 0.1317514181137085
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_121
+translation -0.6822987198829651 0.4099215865135193 0.03063521720468998
+rotation 0.3305509388446808 0.9890355467796326 -2.401193380355835
+scale 0.23528234660625458 0.17460213601589203 0.03463754057884216
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_122
+translation -0.3677828013896942 -0.5529717206954956 -0.19932349026203156
+rotation -0.09009018540382385 0.3641470670700073 -1.4252346754074097
+scale 0.20545092225074768 0.0889098271727562 0.20196221768856049
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_123
+translation -0.9557814598083496 -0.17510902881622314 0.08777199685573578
+rotation -1.3619025945663452 -1.1214622259140015 -0.08398881554603577
+scale 0.22893351316452026 0.043007075786590576 0.13467493653297424
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_124
+translation -0.6230396032333374 -0.646748960018158 -0.05431140959262848
+rotation -2.5175154209136963 0.048299383372068405 1.893873691558838
+scale 0.2034684419631958 0.023171035572886467 0.12462638318538666
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_125
+translation -0.3933219611644745 -0.3844192922115326 -0.06791998445987701
+rotation 2.0616536140441895 0.04856843128800392 -1.5895570516586304
+scale 0.07125785201787949 0.04979809373617172 0.08410065621137619
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_126
+translation 0.048166438937187195 -0.695065975189209 0.08790170401334763
+rotation 0.0016482751816511154 -2.0945260524749756 1.9239122867584229
+scale 0.06095149368047714 0.12026015669107437 0.21406467258930206
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_127
+translation -0.4292123317718506 0.5394612550735474 -0.03664283826947212
+rotation 0.11775653809309006 -0.4953511655330658 -0.8663880825042725
+scale 0.030901893973350525 0.2599116563796997 0.02226765640079975
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_128
+translation -0.42423102259635925 0.6097772717475891 -0.1490848809480667
+rotation 2.624448537826538 0.7236555814743042 0.1310456246137619
+scale 0.17697015404701233 0.17628590762615204 0.21575471758842468
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_129
+translation 0.3633531928062439 -0.6582622528076172 0.07092718034982681
+rotation -1.0554121732711792 -0.504101574420929 0.5537363886833191
+scale 0.10418276488780975 0.2423834204673767 0.18925632536411285
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_13
+translation -0.4712568521499634 -0.6789190769195557 -0.18167024850845337
+rotation -2.9721574783325195 0.6658903956413269 0.40458691120147705
+scale 0.1455431431531906 0.04701206088066101 0.19045451283454895
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_130
+translation -0.8236936330795288 -0.4986310303211212 -0.07962004840373993
+rotation 0.1505611687898636 0.6549171805381775 -1.192080020904541
+scale 0.2549004554748535 0.08056178689002991 0.18077267706394196
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_131
+translation 0.5737700462341309 0.5759694576263428 -0.08523451536893845
+rotation 0.06586846709251404 2.4251420497894287 0.06253061443567276
+scale 0.10845884680747986 0.1065898984670639 0.05875848978757858
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_132
+translation -0.7034720182418823 -0.2784658968448639 0.061882250010967255
+rotation -1.137579321861267 -1.1621569395065308 1.4845209121704102
+scale 0.27271756529808044 0.11131882667541504 0.22093993425369263
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_133
+translation -0.7452182173728943 0.2083049863576889 -0.11451943963766098
+rotation 1.6349810361862183 -0.9770921468734741 -2.028550624847412
+scale 0.05246882885694504 0.06720882654190063 0.18469570577144623
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_134
+translation 0.24444910883903503 -0.7383320927619934 0.1184099018573761
+rotation 1.6328562498092651 0.3210376501083374 2.6650397777557373
+scale 0.23412594199180603 0.1532939374446869 0.228789284825325
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_135
+translation 0.23113688826560974 0.5690732002258301 0.006180803757160902
+rotation -0.8529618978500366 -2.3422622680664062 0.9484933018684387
+scale 0.17370261251926422 0.19423651695251465 0.19111131131649017
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_136
+translation -0.6071962118148804 0.596672773361206 0.12736938893795013
+rotation -1.4157670736312866 2.7886528968811035 0.04609903693199158
+scale 0.029803015291690826 0.13824033737182617 0.09781792759895325
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_137
+translation -0.6190301775932312 -0.6558622121810913 -0.1101437360048294
+rotation -1.0574811697006226 0.48211508989334106 -0.8529423475265503
+scale 0.10001827776432037 0.14105501770973206 0.026498116552829742
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_138
+translation 0.3925722539424896 0.49521154165267944 -0.10206298530101776
+rotation -0.18509402871131897 -0.15936431288719177 1.821306586265564
+scale 0.2580350637435913 0.18835245072841644 0.15704967081546783
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_139
+translation 0.06013541668653488 -0.7763607501983643 -0.17086870968341827
+rotation 0.9540227651596069 1.1213805675506592 -0.15312735736370087
+scale 0.2698042690753937 0.1404227763414383 0.2448466271162033
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_14
+translation -0.35463306307792664 0.5432854890823364 -0.16808320581912994
+rotation -0.2406558096408844 2.8256449699401855 -0.7596126794815063
+scale 0.01785959303379059 0.19639739394187927 0.04935285076498985
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_15
+translation 0.19843123853206635 0.6206594705581665 -0.08881055563688278
+rotation -0.7594723701477051 -1.58342444896698 2.0855417251586914
+scale 0.07138147950172424 0.10478527843952179 0.23075661063194275
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_16
+translation -0.6853327751159668 0.5070328116416931 -0.05192761495709419
+rotation 0.24767716228961945 -3.1410133838653564 -0.9427270293235779
+scale 0.08315875381231308 0.03375280648469925 0.015621153637766838
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_17
+translation -0.2905099391937256 0.5680970549583435 0.17466183006763458
+rotation -1.5441983938217163 -0.31659868359565735 1.2526201009750366
+scale 0.1985417753458023 0.23655758798122406 0.19900883734226227
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_18
+translation -0.746950626373291 -0.42200860381126404 -0.1315445452928543
+rotation 1.0647414922714233 -0.40193280577659607 -1.7720810174942017
+scale 0.015910204499959946 0.05419088155031204 0.046604085713624954
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_19
+translation 0.013730429112911224 0.8925561904907227 -0.04821782186627388
+rotation 0.6738559603691101 -1.5577629804611206 -2.421961545944214
+scale 0.2128448486328125 0.23240044713020325 0.05865885689854622
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_20
+translation -0.7870452404022217 -0.6104934811592102 0.02277989685535431
+rotation 0.1613422930240631 1.960085153579712 -2.0272867679595947
+scale 0.247597336769104 0.2897690236568451 0.04134863615036011
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_21
+translation 0.039179716259241104 -0.8728834986686707 0.11039996147155762
+rotation -2.664092779159546 -1.1976655721664429 0.7994874119758606
+scale 0.2878700792789459 0.1250297874212265 0.21735426783561707
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_22
+translation 0.38478410243988037 0.5231894850730896 -0.07381878048181534
+rotation -2.510687828063965 0.7606114149093628 -0.10150891542434692
+scale 0.039551377296447754 0.2340194433927536 0.256585031747818
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_23
+translation -0.13919919729232788 0.656832754611969 0.17716388404369354
+rotation -0.813227117061615 -0.03745278716087341 -0.9975740909576416
+scale 0.23696425557136536 0.11068908870220184 0.1342296302318573
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_24
+translation -0.6117907762527466 0.7300601005554199 0.06217546761035919
+rotation -0.24637919664382935 -2.2896862030029297 -1.0762637853622437
+scale 0.2563769221305847 0.24847596883773804 0.04060627147555351
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_25
+translation 0.2761235237121582 -0.6859152317047119 -0.016459258273243904
+rotation -0.21693497896194458 1.6969777345657349 -1.2051199674606323
+scale 0.21511951088905334 0.1362912654876709 0.22280064225196838
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_26
+translation -0.2464626133441925 0.622829258441925 0.02454725280404091
+rotation -1.6900123357772827 1.6863789558410645 -0.931713879108429
+scale 0.1660701483488083 0.1502142697572708 0.13631659746170044
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_27
+translation -0.6162055730819702 -0.2595127522945404 0.15912915766239166
+rotation -1.6093534231185913 0.22174327075481415 0.6932345032691956
+scale 0.25091198086738586 0.03513224050402641 0.26567304134368896
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_28
+translation -0.18205872178077698 0.7186132669448853 0.1990150362253189
+rotation 1.142533540725708 1.332788348197937 -1.270256757736206
+scale 0.11990690231323242 0.01832299865782261 0.2567763328552246
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_29
+translation 0.2778491973876953 0.7449460029602051 -0.18115344643592834
+rotation 1.7358466386795044 0.06378133594989777 -0.3263323903083801
+scale 0.10869826376438141 0.26529279351234436 0.2133432924747467
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_30
+translation -0.475536048412323 -0.3257335126399994 0.11683174222707748
+rotation 1.6220964193344116 -1.1976336240768433 0.916735053062439
+scale 0.03482775762677193 0.2188216596841812 0.15168757736682892
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_31
+translation 0.35162076354026794 0.665569543838501 -0.04735228419303894
+rotation -1.7492613792419434 -1.2050341367721558 -1.2176433801651
+scale 0.1523381918668747 0.2399505376815796 0.03698547184467316
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_32
+translation -0.9891612529754639 -0.1365690380334854 0.18843135237693787
+rotation -0.4680732488632202 -1.5452579259872437 -1.0631695985794067
+scale 0.1786511242389679 0.14724554121494293 0.16396735608577728
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_33
+translation 0.6320071220397949 0.7043803930282593 0.08828872442245483
+rotation 0.7581033110618591 1.2100428342819214 0.7511845827102661
+scale 0.2138279378414154 0.08856576681137085 0.08290707319974899
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_34
+translation -0.8593073487281799 -0.15124055743217468 -0.09326992183923721
+rotation -1.7820078134536743 0.0992831438779831 1.4111093282699585
+scale 0.16540053486824036 0.2310349941253662 0.06369345635175705
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_35
+translation 0.21952767670154572 0.8261530995368958 -0.026093900203704834
+rotation 0.6316242218017578 1.2196767330169678 1.429318904876709
+scale 0.2932160496711731 0.16214469075202942 0.09206962585449219
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_36
+translation 0.41315266489982605 -0.6477635502815247 0.1503411829471588
+rotation 1.7235488891601562 -0.16150982677936554 -2.806328296661377
+scale 0.06203804910182953 0.014103025197982788 0.16489917039871216
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_37
+translation -0.6689831018447876 -0.0018477310659363866 -0.12853924930095673
+rotation -0.05731096863746643 -2.341867208480835 0.46535933017730713
+scale 0.21225103735923767 0.04662105441093445 0.26185375452041626
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_38
+translation 0.16852708160877228 -0.9518768191337585 -0.08062208443880081
+rotation 0.3228093981742859 -0.37030819058418274 3.0016610622406006
+scale 0.14612510800361633 0.13773596286773682 0.06346546113491058
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_39
+translation -0.7438029050827026 -0.41948702931404114 -0.13886429369449615
+rotation -2.328261137008667 0.33683574199676514 0.937436044216156
+scale 0.24841351807117462 0.12620516121387482 0.03148382902145386
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_40
+translation -0.891012966632843 -0.16726911067962646 0.11145059019327164
+rotation 0.7442530393600464 -1.4800455570220947 -2.473579168319702
+scale 0.17322346568107605 0.09811230003833771 0.298236221075058
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_41
+translation 0.5675710439682007 0.5706385374069214 -0.07033757865428925
+rotation -0.3109268248081207 0.35989469289779663 2.2629942893981934
+scale 0.23931483924388885 0.07544927299022675 0.16154605150222778
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_42
+translation 0.224340558052063 -0.46290266513824463 0.1514887511730194
+rotation -2.452761173248291 -1.6330668926239014 -0.32930073142051697
+scale 0.29710906744003296 0.09856027364730835 0.19009792804718018
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_43
+translation -0.5758571624755859 0.736299991607666 -0.17682993412017822
+rotation 0.9868188500404358 1.0921027660369873 0.4716464579105377
+scale 0.0702584907412529 0.07119730859994888 0.20152415335178375
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_44
+translation 0.4862889349460602 -0.8197745084762573 -0.16573861241340637
+rotation -1.3115566968917847 1.6871845722198486 1.3003419637680054
+scale 0.010775959119200706 0.1406460702419281 0.18220525979995728
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_45
+translation 0.3474764823913574 0.7026755809783936 0.10424086451530457
+rotation -0.47808101773262024 -1.3331159353256226 -2.355829954147339
+scale 0.21386639773845673 0.14166907966136932 0.2093416303396225
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_46
+translation 0.16287855803966522 0.893222451210022 -0.009887048974633217
+rotation 0.27999359369277954 -0.9276164174079895 2.56612491607666
+scale 0.20174308121204376 0.2807638943195343 0.13329030573368073
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_47
+translation -0.36396804451942444 0.7279285192489624 0.14897321164608002
+rotation -1.208810567855835 -1.564247488975525 0.43484076857566833
+scale 0.24972301721572876 0.030708853155374527 0.05811760947108269
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_48
+translation -0.1589897722005844 0.7362579107284546 0.015718435868620872
+rotation 1.254963755607605 -2.781416654586792 0.0029667301569133997
+scale 0.09369706362485886 0.04606256261467934 0.20971661806106567
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_49
+translation -0.14447806775569916 0.8812345862388611 -0.07531348615884781
+rotation -0.427076518535614 1.1163864135742188 -1.5684846639633179
+scale 0.15320062637329102 0.033328138291835785 0.02155962772667408
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_50
+translation -0.7593939304351807 -0.6478293538093567 -0.024759966880083084
+rotation -2.669102907180786 -0.3092186748981476 -0.0026868025306612253
+scale 0.03648480027914047 0.2889542579650879 0.25242799520492554
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_51
+translation 0.17057529091835022 0.7804396152496338 -0.11012106388807297
+rotation 1.6101845502853394 0.18534888327121735 0.9519622921943665
+scale 0.2049616575241089 0.08815819770097733 0.021667182445526123
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_52
+translation -0.6490591764450073 -0.2868560552597046 -0.10795410722494125
+rotation 0.84687739610672 0.05198827385902405 -2.5682997703552246
+scale 0.2756611108779907 0.06263185292482376 0.17974558472633362
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_53
+translation 0.2807556986808777 0.5799476504325867 0.05244118347764015
+rotation 2.3402907848358154 0.9135733246803284 1.294620394706726
+scale 0.11090870201587677 0.106659434735775 0.20433871448040009
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_54
+translation 0.2163795381784439 -0.6122795343399048 0.14385415613651276
+rotation 0.3147662281990051 0.283837229013443 -1.165423035621643
+scale 0.09358315914869308 0.28410613536834717 0.2459341436624527
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_55
+translation -0.18162454664707184 0.5197649002075195 0.0675911083817482
+rotation 0.0917108952999115 -3.066943407058716 0.9906094670295715
+scale 0.10374939441680908 0.29135358333587646 0.12721076607704163
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_56
+translation 0.10329529643058777 0.6324616074562073 0.1742056906223297
+rotation -0.8684658408164978 -1.611279845237732 0.7879663109779358
+scale 0.16735213994979858 0.12984178960323334 0.06439893692731857
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_57
+translation -0.8167586922645569 0.10577146708965302 0.1138477697968483
+rotation 2.6871469020843506 0.388827919960022 1.2456415891647339
+scale 0.23039725422859192 0.06903188675642014 0.16927368938922882
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_58
+translation -0.10327991843223572 0.9192149043083191 -0.16122767329216003
+rotation -1.6380423307418823 2.1464734077453613 0.3194309175014496
+scale 0.04521356523036957 0.292212575674057 0.18657277524471283
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_59
+translation -0.7085878849029541 0.26681745052337646 -0.013190132565796375
+rotation -0.547077476978302 2.899362564086914 0.7380616068840027
+scale 0.17015290260314941 0.0370306670665741 0.29775455594062805
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_60
+translation -0.6109586954116821 -0.6507967114448547 0.19366608560085297
+rotation 0.05574449896812439 1.4236133098602295 2.103132486343384
+scale 0.2513215243816376 0.1545289009809494 0.21781495213508606
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_61
+translation -0.5101761221885681 0.2520589232444763 -0.06427896022796631
+rotation -0.7314507365226746 -2.6506755352020264 0.0517791211605072
+scale 0.29427093267440796 0.08068195730447769 0.1698668748140335
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_62
+translation -0.35674378275871277 0.8769197463989258 -0.12391643971204758
+rotation -1.3194302320480347 2.6071600914001465 -0.41312965750694275
+scale 0.26500460505485535 0.2605678141117096 0.09011174738407135
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_63
+translation -0.714500904083252 0.2755877375602722 -0.08858194202184677
+rotation 1.8758816719055176 -2.595346689224243 -0.00689679803326726
+scale 0.15724392235279083 0.24795934557914734 0.09202330559492111
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_64
+translation 0.27195361256599426 -0.6028234362602234 -0.022747702896595
+rotation -0.9731149077415466 -0.326206773519516 0.2728792130947113
+scale 0.1519957035779953 0.05309266597032547 0.16618837416172028
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_65
+translation -0.9200851321220398 -0.2223852276802063 -0.17976467311382294
+rotation 1.2409194707870483 -0.4511178731918335 -1.6740764379501343
+scale 0.14204992353916168 0.10331542044878006 0.06470918655395508
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_66
+translation 0.012692604213953018 -0.9996502995491028 0.18759849667549133
+rotation 1.2894848585128784 -1.9566395282745361 -0.7157882452011108
+scale 0.23490791022777557 0.022657716646790504 0.2259644865989685
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_67
+translation 0.07030481845140457 -0.9694495797157288 -0.13347555696964264
+rotation -0.02935090847313404 2.908991575241089 0.014395800419151783
+scale 0.20246976613998413 0.24801678955554962 0.2944372594356537
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_68
+translation -0.17245687544345856 0.7645190954208374 -0.03958388417959213
+rotation -0.3750671446323395 -0.16305550932884216 -0.27062883973121643
+scale 0.1811523288488388 0.2622130811214447 0.2635152041912079
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_69
+translation -0.45638003945350647 0.2927350401878357 0.1941235363483429
+rotation 0.9698801636695862 2.9498963356018066 -0.1934993863105774
+scale 0.21950870752334595 0.12889379262924194 0.19988659024238586
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_70
+translation -0.15414439141750336 -0.6520289778709412 -0.0179966539144516
+rotation -0.9313862323760986 -0.9277666211128235 -0.8837794065475464
+scale 0.10818275809288025 0.21088433265686035 0.1984526365995407
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_71
+translation 0.41543319821357727 -0.6282283663749695 0.19816908240318298
+rotation -1.5117229223251343 -0.8018410801887512 0.22556069493293762
+scale 0.12020272761583328 0.10183173418045044 0.21842806041240692
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_72
+translation -0.42094072699546814 -0.6997393369674683 -0.13808126747608185
+rotation -0.016173187643289566 -1.5911139249801636 2.7267231941223145
+scale 0.029842017218470573 0.19303669035434723 0.27706947922706604
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_73
+translation 0.40938320755958557 -0.5522103309631348 0.03167211636900902
+rotation -0.3538781702518463 -1.2189453840255737 2.534787893295288
+scale 0.03854850307106972 0.1937868893146515 0.2630479633808136
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_74
+translation -0.3172305226325989 -0.7456615567207336 -0.17713388800621033
+rotation -0.7863966226577759 2.2269506454467773 0.19582374393939972
+scale 0.023337380960583687 0.24088160693645477 0.09507665783166885
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_75
+translation -0.8294631242752075 -0.01114211231470108 0.14108796417713165
+rotation 0.49617284536361694 -0.8115385174751282 -2.389430046081543
+scale 0.17411914467811584 0.2398306280374527 0.05929525941610336
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_76
+translation 0.3428506851196289 -0.5005276799201965 -0.1679554134607315
+rotation -0.24410241842269897 1.5458059310913086 -1.5373276472091675
+scale 0.07984063774347305 0.27472037076950073 0.051504142582416534
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_77
+translation -0.5624580383300781 -0.27020302414894104 0.07008501887321472
+rotation 1.1159619092941284 2.1490025520324707 -0.36612266302108765
+scale 0.012725254520773888 0.24334359169006348 0.2713507413864136
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_78
+translation 0.14278700947761536 0.6371929049491882 0.15611492097377777
+rotation -0.4755810797214508 1.5701791048049927 2.1696083545684814
+scale 0.11021403223276138 0.18039579689502716 0.19529221951961517
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_79
+translation -0.5949642658233643 -0.28404054045677185 0.04775260388851166
+rotation -1.6511852741241455 -0.45190367102622986 0.47005733847618103
+scale 0.06777293235063553 0.12156104296445847 0.15013033151626587
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_80
+translation -0.6936302781105042 -0.28860995173454285 0.009113086387515068
+rotation 0.9941872358322144 1.41698157787323 0.41424429416656494
+scale 0.2978806793689728 0.09561692178249359 0.29360389709472656
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_81
+translation -0.17185644805431366 0.9599453210830688 0.08647672086954117
+rotation 0.6685717701911926 0.02056303806602955 2.5393829345703125
+scale 0.20888185501098633 0.22595396637916565 0.024222832173109055
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_82
+translation -0.5775822401046753 0.30889031291007996 0.06867609173059464
+rotation -0.9278947710990906 -0.8583953976631165 0.7595816254615784
+scale 0.09299630671739578 0.2416694164276123 0.18604885041713715
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_83
+translation -0.44639015197753906 0.5251034498214722 0.1007457971572876
+rotation -1.0157579183578491 -2.3357861042022705 -0.606932520866394
+scale 0.2065517008304596 0.2190692275762558 0.201162651181221
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_84
+translation -0.5411055684089661 0.10775933414697647 0.1993817836046219
+rotation 0.4999769330024719 -1.4599593877792358 -2.575268030166626
+scale 0.1974387764930725 0.09959053993225098 0.1378387212753296
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_85
+translation 0.4254646897315979 0.9033560156822205 -0.11473827809095383
+rotation 0.8303844928741455 -2.893986225128174 -0.17913611233234406
+scale 0.0955820307135582 0.22676944732666016 0.0609356164932251
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_86
+translation 0.30396565794944763 -0.5970805287361145 0.152345672249794
+rotation -1.527001976966858 -2.040086030960083 -0.1140534058213234
+scale 0.163947194814682 0.27491122484207153 0.2508370578289032
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_87
+translation -0.7790063619613647 0.5500924587249756 -0.13690127432346344
+rotation 0.7236326932907104 -0.23314839601516724 0.8844023942947388
+scale 0.24388165771961212 0.2265022099018097 0.1082274317741394
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_88
+translation -0.5372176170349121 -0.7659673690795898 0.044671107083559036
+rotation -0.1260264664888382 -0.20565016567707062 -1.2278121709823608
+scale 0.29028505086898804 0.2594407796859741 0.22002284228801727
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_89
+translation -0.7445136308670044 -0.6603970527648926 -0.19687075912952423
+rotation 0.2297905534505844 0.28408780694007874 1.0859125852584839
+scale 0.11607476323843002 0.2392977774143219 0.014036409556865692
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_90
+translation -0.5437827706336975 0.7530792355537415 0.06535548716783524
+rotation -0.3751571774482727 0.6807586550712585 1.4691463708877563
+scale 0.2049788385629654 0.17952242493629456 0.2485010176897049
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_91
+translation 0.14845380187034607 0.9654837846755981 -0.15382853150367737
+rotation -0.5324628353118896 1.390891194343567 0.39720436930656433
+scale 0.017257148399949074 0.2664281129837036 0.17280814051628113
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_92
+translation -0.5567159056663513 -0.14263364672660828 -0.09106071293354034
+rotation 2.5653984546661377 0.8782448768615723 -0.3376486897468567
+scale 0.24891804158687592 0.27372241020202637 0.09763514995574951
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_93
+translation -0.4350922107696533 -0.7171590924263 -0.11856107413768768
+rotation -0.7083705067634583 0.85240238904953 2.850327730178833
+scale 0.09826572984457016 0.15286113321781158 0.03818567842245102
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_94
+translation -0.3771134614944458 0.763848066329956 -0.004587259143590927
+rotation -0.5081416964530945 -1.5222209692001343 -2.17069673538208
+scale 0.20444099605083466 0.2255106419324875 0.2843324840068817
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_95
+translation 0.0579683855175972 -0.9621029496192932 -0.1630806177854538
+rotation 2.564267635345459 -0.3045990765094757 0.20556247234344482
+scale 0.13031652569770813 0.03871627524495125 0.15191064774990082
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_96
+translation -0.37334346771240234 0.654443621635437 -0.198581725358963
+rotation -0.9082329869270325 0.6242635250091553 -1.9749292135238647
+scale 0.1174536794424057 0.13858109712600708 0.2856610119342804
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_97
+translation -0.726666271686554 -0.5479922890663147 -0.09521789848804474
+rotation 2.5015852451324463 1.1926023960113525 0.7675521373748779
+scale 0.1678950935602188 0.29357433319091797 0.11401541531085968
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_98
+translation -0.8712409138679504 -0.21647731959819794 -0.028925232589244843
+rotation 0.8903553485870361 -0.6103859543800354 -3.007399797439575
+scale 0.2559295892715454 0.14186803996562958 0.2022029459476471
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+name Cube_99
+translation 0.21181493997573853 0.46085432171821594 0.1532425582408905
+rotation -2.73583722114563 0.43109026551246643 -1.4755594730377197
+scale 0.23817043006420135 0.08063498139381409 0.04651792719960213
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+PLANES 1
+name Plane
+points 4
+-1.7855029106140137 -1.7855029106140137 -1.3054146766662598
+1.7855029106140137 -1.7855029106140137 -1.3054146766662598
+-1.7855029106140137 1.7855029106140137 -1.3054146766662598
+1.7855029106140137 1.7855029106140137 -1.3054146766662598
+visible 1
+material_diffuse 1.0 1.0 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.1 0.1 0.1
+material_shininess 7858.789191915406
+material_glossiness 0.8881966024637222
+material_reflectivity 0.06000000089406967
+material_transparency 0.0
+material_refractive_index 1.0
+material_texture tex2.jpg
+TORUSES 0
+CYLINDERS 0
+CONES 0

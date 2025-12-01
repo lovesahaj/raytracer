@@ -1,0 +1,25 @@
+# Module 1 Features
+Camera class implemented with coordinate transformations
+PPM image reader and writer implemented
+Blender exporter script implemented
+
+# Module 2 Features
+Sphere/Cube/Plane Intersection with Ray implemented
+Transformations using TRS and SRT matrixes implemented
+BVH Algorithm for Rendering Optimization implemented
+
+# Module 3 Features
+Whitted-style recursive raytracing implemented
+Composite BRDF shading (Lambertian diffuse + Blinn-Phong specular) implemented
+Blinn-Phong shading model with proper BRDF formulation implemented
+Shadow ray testing for hard shadows implemented
+Reflection rays with recursive tracing implemented
+Refraction rays with Snell's law implemented
+Antialiasing with multi-sampling implemented
+Texture mapping with UV coordinates implemented
+Material system with diffuse, specular, ambient properties implemented
+Blender exporter updated to export material properties implemented
+Scene parser updated to read material properties implemented
+
+# Partial
+# (Features that are partially implemented will be listed here)

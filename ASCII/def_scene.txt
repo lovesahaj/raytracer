@@ -1,0 +1,83 @@
+SCENE_SETTINGS
+background_color 0.05087608844041824 0.05087608844041824 0.05087608844041824
+background_strength 1.0
+ambient_light 0.1 0.1 0.1
+frame_current 1
+frame_start 1
+frame_end 250
+fps 24
+max_bounces 12
+diffuse_bounces 4
+glossy_bounces 4
+transmission_bounces 12
+
+CAMERAS 1
+name Camera
+location 7.358891487121582 -6.925790786743164 4.958309173583984
+gaze -0.6515582203865051 0.6141704320907593 -0.445271372795105
+up -0.32401368021965027 0.305420845746994 0.8953956365585327
+focal 50.0
+sensor 36.0 24.0
+resolution 1920 1080
+dof_enabled 0
+focus_distance 10.0
+aperture_fstop 2.799999952316284
+aperture_blades 0
+camera_type PERSP
+clip_start 0.10000000149011612
+clip_end 100.0
+LIGHTS 1
+name Light
+location 4.076245307922363 1.0054539442062378 5.903861999511719
+intensity 51.0000114440918
+color 1.0 1.0 1.0
+light_type POINT
+cast_shadows 1
+shadow_soft_size 0.10000000149011612
+SPHERES 1
+name Sphere
+location 0.7703282237052917 -2.1871554851531982 0.8254117965698242
+rotation -2.2870237827301025 0.006156452465802431 -0.815067708492279
+scale 0.4480912685394287 1.0680911540985107 0.4480915367603302
+visible 1
+material_diffuse 0.5 0.5 0.5
+material_specular 1.0 1.0 1.0
+material_ambient 0.05 0.05 0.05
+material_shininess 32.0
+material_glossiness 0.0
+material_reflectivity 0.0
+material_transparency 0.0
+material_refractive_index 1.0
+CUBES 1
+name Cube
+translation 0.24843302369117737 0.3694864511489868 0.8107300996780396
+rotation 2.690385341644287 -0.3554134666919708 0.3984299898147583
+scale -0.2094457447528839 -0.09342926740646362 -0.28670254349708557
+visible 1
+material_diffuse 0.5 0.5 0.5
+material_specular 1.0 1.0 1.0
+material_ambient 0.05 0.05 0.05
+material_shininess 32.0
+material_glossiness 0.0
+material_reflectivity 0.0
+material_transparency 0.0
+material_refractive_index 1.0
+PLANES 1
+name Plane
+points 4
+3.4864485263824463 3.4864485263824463 0.0
+-3.4864485263824463 3.4864485263824463 0.0
+3.4864485263824463 -3.4864485263824463 0.0
+-3.4864485263824463 -3.4864485263824463 0.0
+visible 1
+material_diffuse 0.5 0.5 0.5
+material_specular 1.0 1.0 1.0
+material_ambient 0.05 0.05 0.05
+material_shininess 32.0
+material_glossiness 0.0
+material_reflectivity 0.0
+material_transparency 0.0
+material_refractive_index 1.0
+TORUSES 0
+CYLINDERS 0
+CONES 0

@@ -1,0 +1,191 @@
+SCENE_SETTINGS
+background_color 0.05000000074505806 0.05000000074505806 0.07999999821186066
+background_strength 0.5
+ambient_light 0.1 0.1 0.1
+frame_current 1
+frame_start 1
+frame_end 250
+fps 24
+max_bounces 12
+diffuse_bounces 4
+glossy_bounces 4
+transmission_bounces 12
+
+CAMERAS 1
+name Main_Camera
+location 10.0 -10.0 6.0
+gaze -0.6738170981407166 0.6738170981407166 -0.3032180666923523
+up -0.21440699696540833 0.21440699696540833 0.9529215097427368
+focal 50.0
+sensor 36.0 24.0
+resolution 1920 1080
+dof_enabled 1
+focus_distance 14.84082207965583
+aperture_fstop 2.799999952316284
+aperture_blades 0
+camera_type PERSP
+clip_start 0.10000000149011612
+clip_end 1000.0
+LIGHTS 5
+name Accent_Area_Light
+location 4.0 3.0 2.0
+intensity 100.0
+color 0.20000000298023224 0.5 1.0
+light_type AREA
+area_shape SQUARE
+area_size 1.5 1.5
+normal 0.7071066498756409 0.70710688829422 0.0
+samples 16
+cast_shadows 1
+shadow_soft_size 0.0
+name Fill_Area_Light
+location -6.0 -2.0 4.0
+intensity 200.0
+color 0.8500000238418579 0.8999999761581421 1.0
+light_type AREA
+area_shape SQUARE
+area_size 4.0 4.0
+normal -0.06127500534057617 0.8993027210235596 -0.4330127239227295
+samples 16
+cast_shadows 1
+shadow_soft_size 0.0
+name Key_Area_Light
+location 5.0 -4.0 6.0
+intensity 500.0
+color 1.0 0.949999988079071 0.8999999761581421
+light_type AREA
+area_shape RECTANGLE
+area_size 3.0 2.0
+normal 0.14410971105098724 0.7332949042320251 -0.6644629836082458
+samples 16
+cast_shadows 1
+shadow_soft_size 0.0
+name Rim_Area_Light
+location 0.0 5.0 3.0
+intensity 300.0
+color 1.0 0.8500000238418579 0.699999988079071
+light_type AREA
+area_shape RECTANGLE
+area_size 5.0 2.0
+normal 0.0 0.866025447845459 0.5
+samples 16
+cast_shadows 1
+shadow_soft_size 0.0
+name Top_Area_Light
+location 0.0 0.0 8.0
+intensity 150.0
+color 1.0 1.0 1.0
+light_type AREA
+area_shape DISK
+area_size 6.0 6.0
+normal 0.0 0.0 -1.0
+samples 16
+cast_shadows 1
+shadow_soft_size 0.0
+SPHERES 1
+name Glossy_Sphere
+location 0.0 0.0 1.5
+rotation 0.0 -0.0 0.0
+scale 0.9999997615814209 0.9999998807907104 1.0
+visible 1
+material_diffuse 0.800000011920929 0.10000000149011612 0.10000000149011612
+material_specular 0.5 0.5 0.5
+material_ambient 0.0800000011920929 0.010000000149011612 0.010000000149011612
+material_shininess 115.19999980926514
+material_glossiness 0.8999999985098839
+material_reflectivity 0.8999999761581421
+material_transparency 0.0
+material_refractive_index 1.5
+CUBES 1
+name Matte_Cube
+translation -3.0 1.0 1.0
+rotation 0.0 -0.0 0.0
+scale 1.0 1.0 1.0
+visible 1
+material_diffuse 0.10000000149011612 0.20000000298023224 0.699999988079071
+material_specular 0.5 0.5 0.5
+material_ambient 0.010000000149011612 0.020000000298023225 0.06999999880790711
+material_shininess 25.599998474121094
+material_glossiness 0.19999998807907104
+material_reflectivity 0.0
+material_transparency 0.0
+material_refractive_index 1.5
+PLANES 2
+name Back_Wall
+points 4
+-10.0 8.0 -5.0
+10.0 8.0 -5.0
+-10.0 7.999999523162842 15.0
+10.0 7.999999523162842 15.0
+visible 1
+material_diffuse 0.6000000238418579 0.6000000238418579 0.6499999761581421
+material_specular 0.5 0.5 0.5
+material_ambient 0.06000000238418579 0.06000000238418579 0.06499999761581421
+material_shininess 12.800003051757812
+material_glossiness 0.10000002384185791
+material_reflectivity 0.0
+material_transparency 0.0
+material_refractive_index 1.5
+name Ground_Plane
+points 4
+-12.5 -12.5 0.0
+12.5 -12.5 0.0
+-12.5 12.5 0.0
+12.5 12.5 0.0
+visible 1
+material_diffuse 0.4000000059604645 0.4000000059604645 0.4000000059604645
+material_specular 0.5 0.5 0.5
+material_ambient 0.04000000059604645 0.04000000059604645 0.04000000059604645
+material_shininess 51.19999694824219
+material_glossiness 0.3999999761581421
+material_reflectivity 0.0
+material_transparency 0.0
+material_refractive_index 1.5
+TORUSES 1
+name Purple_Torus
+location 0.0 3.0 0.5
+rotation 0.0 -0.0 0.0
+scale 1.0 1.0 1.0
+major_radius 1.199999988079071
+minor_radius 0.30000001192092896
+visible 1
+material_diffuse 0.5 0.10000000149011612 0.800000011920929
+material_specular 0.5 0.5 0.5
+material_ambient 0.05 0.010000000149011612 0.0800000011920929
+material_shininess 108.79999923706055
+material_glossiness 0.8499999940395355
+material_reflectivity 0.8999999761581421
+material_transparency 0.0
+material_refractive_index 1.5
+CYLINDERS 1
+name Glass_Cylinder
+location 0.0 -3.0 1.5
+rotation 0.0 -0.0 0.0
+scale 1.0 1.0 1.0
+radius 0.800000011920929
+depth 3.0
+visible 1
+material_diffuse 0.8999999761581421 0.949999988079071 1.0
+material_specular 1.0 1.0 1.0
+material_ambient 0.08999999761581422 0.0949999988079071 0.1
+material_shininess 128.0
+material_glossiness 1.0
+material_reflectivity 0.0
+material_transparency 1.0
+material_refractive_index 1.4500000476837158
+CONES 1
+name Gold_Cone
+location 3.0 1.0 1.0
+rotation 0.0 -0.0 0.0
+scale 1.0 1.0 1.0
+radius 1.0
+depth 2.0
+visible 1
+material_diffuse 1.0 0.765999972820282 0.335999995470047
+material_specular 0.5 0.5 0.5
+material_ambient 0.1 0.07659999728202821 0.033599999547004704
+material_shininess 102.39999961853027
+material_glossiness 0.7999999970197678
+material_reflectivity 1.0
+material_transparency 0.0
+material_refractive_index 1.5
