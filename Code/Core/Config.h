@@ -45,7 +45,7 @@ struct RenderConfig {
 
   // Global light intensity multiplier
   // Blender uses different units, so we scale down
-  double light_intensity_factor = 0.02;
+  double light_intensity_factor = 0.2;
 
   // Ambient lighting factor (0.0 = no ambient, 1.0 = full ambient)
   double ambient_factor = 1.0;
@@ -141,6 +141,9 @@ struct RenderConfig {
   // Motion blur samples (if object has motion)
   int motion_blur_samples = 16;
 
+  // Enable/disable motion blur globally
+  bool enable_motion_blur = true;
+
   // Glossy reflection samples
   int glossy_samples = 0;
 
@@ -149,6 +152,9 @@ struct RenderConfig {
 
   // Focal distance
   double lens_focal_distance = 10.0;
+
+  // Flag to track if DOF was explicitly set via command line
+  bool dof_flag_set = false;
 
   // ===== SCENE & OUTPUT =====
 

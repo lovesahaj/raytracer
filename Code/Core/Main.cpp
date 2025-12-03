@@ -1,3 +1,7 @@
+//
+// Created by Lovesahaj on 10/10/25.
+//
+
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -33,9 +37,10 @@ void print_help(const char *program_name) {
       << "  --disable-aa             Disable antialiasing\n"
       << "  --soft-shadows <n>       Enable soft shadows with n samples\n"
       << "  --glossy-reflection <n>  Enable glossy reflections with n samples\n"
-      << "  --motion-blur <n>        Enable motion blur with n samples\n"
-      << "  --depth-of-field <a> <d> Enable DOF with aperture a and focal dist "
-         "d\n"
+      << "  --motion-blur <n>        Enable motion blur with n temporal samples (0 to disable)\n"
+      << "  --disable-motion-blur    Disable motion blur completely\n"
+      << "  --depth-of-field <a> <d> Enable DOF with aperture f-stop a and focal distance d\n"
+      << "  --disable-dof            Disable depth of field\n"
       << "  --threads <n>            Number of rendering threads\n"
       << "  --log-level <level>      Set log level (debug, info, warn, error)\n"
       << "  --help                   Display this help message\n";
@@ -86,9 +91,16 @@ void parse_arguments(int argc, char *argv[]) {
       g_config.glossy_samples = std::atoi(argv[++i]);
     } else if (arg == "--motion-blur" && i + 1 < argc) {
       g_config.motion_blur_samples = std::atoi(argv[++i]);
+      g_config.enable_motion_blur = (g_config.motion_blur_samples > 0);
+    } else if (arg == "--disable-motion-blur") {
+      g_config.enable_motion_blur = false;
     } else if (arg == "--depth-of-field" && i + 2 < argc) {
       g_config.lens_aperture = std::atof(argv[++i]);
       g_config.lens_focal_distance = std::atof(argv[++i]);
+      g_config.dof_flag_set = true;
+    } else if (arg == "--disable-dof") {
+      g_config.lens_aperture = 0.0;
+      g_config.dof_flag_set = true;
     } else if (arg == "--threads" && i + 1 < argc) {
       g_config.num_threads = std::atoi(argv[++i]);
     } else if (arg == "--log-level" && i + 1 < argc) {
@@ -149,9 +161,12 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
+  // Make a copy of the camera so we can override settings
+  Camera render_camera = scene.cameras[0];
+
   // Determine resolution
-  int width = scene.cameras[0].film_resolution_x;
-  int height = scene.cameras[0].film_resolution_y;
+  int width = render_camera.film_resolution_x;
+  int height = render_camera.film_resolution_y;
 
   if (g_config.override_width > 0 && g_config.override_height > 0) {
     width = g_config.override_width;
@@ -161,6 +176,27 @@ int main(int argc, char *argv[]) {
         .Int("width", width)
         .Int("height", height)
         .Msg("Overriding resolution");
+  }
+
+  // Override depth-of-field settings if flags were provided
+  if (g_config.dof_flag_set) {
+    if (g_config.lens_aperture > 0.0) {
+      render_camera.dof_enabled = true;
+      // Convert lens_aperture to f-stop
+      // If user provides aperture directly, we use it as f-stop
+      render_camera.aperture_fstop = g_config.lens_aperture;
+      render_camera.focus_distance = g_config.lens_focal_distance;
+      Logger::instance()
+          .Info()
+          .Double("aperture_fstop", render_camera.aperture_fstop)
+          .Double("focus_distance", render_camera.focus_distance)
+          .Msg("Overriding depth-of-field from command-line");
+    } else {
+      render_camera.dof_enabled = false;
+      Logger::instance()
+          .Info()
+          .Msg("Disabling depth-of-field from command-line");
+    }
   }
 
   // Print full configuration before rendering
@@ -185,7 +221,7 @@ int main(int argc, char *argv[]) {
       .Msg("Render Configuration");
 
   // Render using global config (wrapper syncs to g_config)
-  Image output = render_scene_bvh_antialiased(scene, scene.cameras[0], width,
+  Image output = render_scene_bvh_antialiased(scene, render_camera, width,
                                               height, g_config.aa_samples,
                                               g_config.shadow_samples);
 

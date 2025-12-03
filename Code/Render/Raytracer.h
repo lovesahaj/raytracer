@@ -11,6 +11,12 @@
 // Forward declaration for BVH
 struct BVHNode;
 
+// Helper struct to separate diffuse and specular for proper reflectivity blending
+struct ShadingResult {
+  Color diffuse;
+  Color specular;
+};
+
 /**
  * Raytracer class encapsulates the core rendering logic.
  * It manages the BVH, handles ray-scene intersections, and computes shading.
@@ -39,6 +45,9 @@ private:
 
   // Shading function (Blinn-Phong)
   Color shade(const HitRecord &hit, const Direction &view_dir);
+
+  // Shading with separated diffuse and specular components
+  ShadingResult shade_separated(const HitRecord &hit, const Direction &view_dir);
 
   // Shadow computation (Soft shadows)
   double compute_shadow(const Point &point, const Direction &normal,

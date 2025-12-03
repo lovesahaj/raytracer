@@ -8,6 +8,7 @@
 
 using Utils::Logger;
 
+// Helper to check stream status
 bool check_stream(const std::istringstream &iss, const std::string &context) {
   if (iss.fail()) {
     Logger::instance()
@@ -19,12 +20,14 @@ bool check_stream(const std::istringstream &iss, const std::string &context) {
   return true;
 }
 
+// Helper function to parse material properties
 Material parse_material(std::ifstream &file) {
   Material material;
   std::string line, keyword;
 
   Logger::instance().Debug().Msg("Parsing material properties");
 
+  // Read material properties (loop until we hit a non-material keyword)
   while (true) {
     std::streampos pos = file.tellg();
     if (!std::getline(file, line)) {

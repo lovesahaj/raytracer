@@ -45,7 +45,9 @@ def export_material(obj) -> Material:
             obj.color[0] != 1.0 or obj.color[1] != 1.0 or obj.color[2] != 1.0
         ):
             material.diffuse_color = Color(obj.color[0], obj.color[1], obj.color[2])
-            print(f"  {obj.name}: Using object color RGB({obj.color[0]:.3f}, {obj.color[1]:.3f}, {obj.color[2]:.3f})")
+            print(
+                f"  {obj.name}: Using object color RGB({obj.color[0]:.3f}, {obj.color[1]:.3f}, {obj.color[2]:.3f})"
+            )
         else:
             print(f"  {obj.name}: No material assigned (using default gray)")
         return material
@@ -81,29 +83,52 @@ def export_material(obj) -> Material:
 
     # Helper to find texture node
     def find_texture_node(socket):
-        if not socket.is_linked: return None
+        if not socket.is_linked:
+            return None
         node = socket.links[0].from_node
         visited = set()
-        
+
         def traverse(n):
-            if n in visited: return None
+            if n in visited:
+                return None
             visited.add(n)
-            
-            if n.type == "TEX_IMAGE": return n
-            
+
+            if n.type == "TEX_IMAGE":
+                return n
+
             # Pass through common nodes
-            if n.type in ["MIX_RGB", "MIX_SHADER", "ADD_SHADER", "BSDF_DIFFUSE", "BSDF_GLOSSY"]:
+            if n.type in [
+                "MIX_RGB",
+                "MIX_SHADER",
+                "ADD_SHADER",
+                "BSDF_DIFFUSE",
+                "BSDF_GLOSSY",
+            ]:
                 # Check inputs
                 for input_name in ["Color", "Color1", "Color2", "Base Color", "Shader"]:
                     if input_name in n.inputs and n.inputs[input_name].is_linked:
                         res = traverse(n.inputs[input_name].links[0].from_node)
-                        if res: return res
-            elif n.type in ["VALTORGB", "GAMMA", "HUE_SAT", "BRIGHTCONTRAST", "INVERT", "CURVES_RGB", "MATH", "VECT_MATH"]:
-                 # Try generic inputs
-                 for input_socket in n.inputs:
-                     if input_socket.type in ['RGBA', 'VECTOR', 'VALUE'] and input_socket.is_linked:
-                         res = traverse(input_socket.links[0].from_node)
-                         if res: return res
+                        if res:
+                            return res
+            elif n.type in [
+                "VALTORGB",
+                "GAMMA",
+                "HUE_SAT",
+                "BRIGHTCONTRAST",
+                "INVERT",
+                "CURVES_RGB",
+                "MATH",
+                "VECT_MATH",
+            ]:
+                # Try generic inputs
+                for input_socket in n.inputs:
+                    if (
+                        input_socket.type in ["RGBA", "VECTOR", "VALUE"]
+                        and input_socket.is_linked
+                    ):
+                        res = traverse(input_socket.links[0].from_node)
+                        if res:
+                            return res
             return None
 
         return traverse(node)
@@ -138,13 +163,23 @@ def export_material(obj) -> Material:
         if principled:
             base_color = principled.inputs["Base Color"].default_value
             material.diffuse_color = Color(base_color[0], base_color[1], base_color[2])
-            material.ambient_color = Color(base_color[0] * 0.1, base_color[1] * 0.1, base_color[2] * 0.1)
+            material.ambient_color = Color(
+                base_color[0] * 0.1, base_color[1] * 0.1, base_color[2] * 0.1
+            )
 
-            specular = principled.inputs["Specular IOR Level"].default_value if "Specular IOR Level" in principled.inputs else 0.5
+            specular = (
+                principled.inputs["Specular IOR Level"].default_value
+                if "Specular IOR Level" in principled.inputs
+                else 0.5
+            )
             material.specular_color = Color(specular, specular, specular)
 
             roughness = principled.inputs["Roughness"].default_value
-            material.shininess = max(1.0, (1.0 - roughness) * 128.0)
+            # Use a smoother, non-linear mapping for shininess to get softer highlights
+            # roughness 0.0 -> shininess ~80 (glossy but not super sharp)
+            # roughness 0.5 -> shininess ~20 (moderate)
+            # roughness 1.0 -> shininess ~1 (very rough)
+            material.shininess = max(1.0, pow(1.0 - roughness, 2.5) * 120.0)
             material.glossiness = 1.0 - roughness  # Export glossiness
 
             if "Metallic" in principled.inputs:
@@ -171,27 +206,36 @@ def export_material(obj) -> Material:
             if "IOR" in principled.inputs:
                 material.refractive_index = principled.inputs["IOR"].default_value
 
-            if "Emission Color" in principled.inputs and "Emission Strength" in principled.inputs:
+            if (
+                "Emission Color" in principled.inputs
+                and "Emission Strength" in principled.inputs
+            ):
                 emission_color = principled.inputs["Emission Color"].default_value
                 emission_strength = principled.inputs["Emission Strength"].default_value
                 if emission_strength > 0.0:
-                    material.emission_color = Color(emission_color[0], emission_color[1], emission_color[2])
+                    material.emission_color = Color(
+                        emission_color[0], emission_color[1], emission_color[2]
+                    )
                     material.emission_strength = emission_strength
 
             if "Subsurface Weight" in principled.inputs:
                 subsurface = principled.inputs["Subsurface Weight"].default_value
-                if subsurface > 0.0: material.subsurface = subsurface
+                if subsurface > 0.0:
+                    material.subsurface = subsurface
 
             if "Sheen Weight" in principled.inputs:
                 sheen = principled.inputs["Sheen Weight"].default_value
-                if sheen > 0.0: material.sheen = sheen
+                if sheen > 0.0:
+                    material.sheen = sheen
 
             if "Coat Weight" in principled.inputs:
                 clearcoat = principled.inputs["Coat Weight"].default_value
                 if clearcoat > 0.0:
                     material.clearcoat = clearcoat
                     if "Coat Roughness" in principled.inputs:
-                        material.clearcoat_roughness = principled.inputs["Coat Roughness"].default_value
+                        material.clearcoat_roughness = principled.inputs[
+                            "Coat Roughness"
+                        ].default_value
 
             # Texture handling
             tex_node = find_texture_node(principled.inputs["Base Color"])
@@ -203,7 +247,7 @@ def export_material(obj) -> Material:
 
         elif diffuse_bsdf and glossy_bsdf and mix_shader:
             diffuse_color = diffuse_bsdf.inputs["Color"].default_value
-            
+
             # Texture handling for Diffuse/Glossy mix
             tex_node = find_texture_node(diffuse_bsdf.inputs["Color"])
             if tex_node and tex_node.image:
@@ -213,14 +257,20 @@ def export_material(obj) -> Material:
                     material.has_texture = True
                     material.diffuse_color = Color(1.0, 1.0, 1.0)
             else:
-                material.diffuse_color = Color(diffuse_color[0], diffuse_color[1], diffuse_color[2])
+                material.diffuse_color = Color(
+                    diffuse_color[0], diffuse_color[1], diffuse_color[2]
+                )
 
             material.specular_color = Color(1.0, 1.0, 1.0)
-            material.ambient_color = Color(material.diffuse_color.x * 0.1, material.diffuse_color.y * 0.1, material.diffuse_color.z * 0.1)
+            material.ambient_color = Color(
+                material.diffuse_color.x * 0.1,
+                material.diffuse_color.y * 0.1,
+                material.diffuse_color.z * 0.1,
+            )
 
             if "Roughness" in glossy_bsdf.inputs:
                 roughness = glossy_bsdf.inputs["Roughness"].default_value
-                material.shininess = max(1.0, (1.0 / (roughness + 0.001)) ** 2 * 100.0)
+                material.shininess = max(1.0, pow(1.0 - roughness, 2.5) * 120.0)
                 material.glossiness = 1.0 - roughness
 
             if "Fac" in mix_shader.inputs:
@@ -237,9 +287,11 @@ def export_material(obj) -> Material:
                 material.refractive_index = glass_bsdf.inputs["IOR"].default_value
             if "Roughness" in glass_bsdf.inputs:
                 roughness = glass_bsdf.inputs["Roughness"].default_value
-                material.shininess = max(1.0, (1.0 - roughness) * 128.0)
+                material.shininess = max(1.0, pow(1.0 - roughness, 2.5) * 120.0)
                 material.glossiness = 1.0 - roughness
-            material.ambient_color = Color(color[0]*0.1, color[1]*0.1, color[2]*0.1)
+            material.ambient_color = Color(
+                color[0] * 0.1, color[1] * 0.1, color[2] * 0.1
+            )
             material.specular_color = Color(1.0, 1.0, 1.0)
 
         elif refract_bsdf:
@@ -250,15 +302,19 @@ def export_material(obj) -> Material:
                 material.refractive_index = refract_bsdf.inputs["IOR"].default_value
             if "Roughness" in refract_bsdf.inputs:
                 roughness = refract_bsdf.inputs["Roughness"].default_value
-                material.shininess = max(1.0, (1.0 - roughness) * 128.0)
+                material.shininess = max(1.0, pow(1.0 - roughness, 2.5) * 120.0)
                 material.glossiness = 1.0 - roughness
-            material.ambient_color = Color(color[0]*0.1, color[1]*0.1, color[2]*0.1)
+            material.ambient_color = Color(
+                color[0] * 0.1, color[1] * 0.1, color[2] * 0.1
+            )
             material.specular_color = Color(1.0, 1.0, 1.0)
 
         if emission_node:
             emission_color = emission_node.inputs["Color"].default_value
             emission_strength = emission_node.inputs["Strength"].default_value
-            material.emission_color = Color(emission_color[0], emission_color[1], emission_color[2])
+            material.emission_color = Color(
+                emission_color[0], emission_color[1], emission_color[2]
+            )
             material.emission_strength = emission_strength
 
         # Normal/Bump maps
@@ -281,10 +337,14 @@ def export_material(obj) -> Material:
 
     else:
         # Legacy material
-        material.diffuse_color = Color(mat.diffuse_color[0], mat.diffuse_color[1], mat.diffuse_color[2])
-        material.specular_color = Color(mat.specular_color[0], mat.specular_color[1], mat.specular_color[2])
+        material.diffuse_color = Color(
+            mat.diffuse_color[0], mat.diffuse_color[1], mat.diffuse_color[2]
+        )
+        material.specular_color = Color(
+            mat.specular_color[0], mat.specular_color[1], mat.specular_color[2]
+        )
         material.shininess = mat.specular_intensity * 128.0
-        material.glossiness = 0.0 # Default
+        material.glossiness = 0.0  # Default
 
     return material
 
@@ -315,8 +375,12 @@ def export_camera(cam_obj) -> Camera:
     cam = cam_obj.data
     scene = bpy.context.scene
     matrix = cam_obj.matrix_world
-    gaze = Direction.from_vector(matrix @ mathutils.Vector((0, 0, -1)) - matrix.translation)
-    up = Direction.from_vector(matrix @ mathutils.Vector((0, 1, 0)) - matrix.translation)
+    gaze = Direction.from_vector(
+        matrix @ mathutils.Vector((0, 0, -1)) - matrix.translation
+    )
+    up = Direction.from_vector(
+        matrix @ mathutils.Vector((0, 1, 0)) - matrix.translation
+    )
 
     camera = Camera(
         name=cam_obj.name,
@@ -336,7 +400,9 @@ def export_camera(cam_obj) -> Camera:
         # Calculate distance to focus object
         focus_obj = cam.dof.focus_object
         camera.focus_distance = (cam_obj.location - focus_obj.location).length
-        print(f"  Camera '{cam_obj.name}' focusing on '{focus_obj.name}' at distance {camera.focus_distance:.2f}")
+        print(
+            f"  Camera '{cam_obj.name}' focusing on '{focus_obj.name}' at distance {camera.focus_distance:.2f}"
+        )
     elif hasattr(cam, "dof"):
         camera.focus_distance = cam.dof.focus_distance
     else:
@@ -367,13 +433,15 @@ def export_light(light_obj) -> Light:
     if light.type == "AREA":
         light_data.area_shape = light.shape
         light_data.area_size_x = light.size
-        light_data.area_size_y = light.size_y if light.shape in ["RECTANGLE", "ELLIPSE"] else light.size
-        
+        light_data.area_size_y = (
+            light.size_y if light.shape in ["RECTANGLE", "ELLIPSE"] else light.size
+        )
+
         # Export normal (direction) for area light
         matrix = light_obj.matrix_world
         direction = matrix @ mathutils.Vector((0, 0, -1)) - matrix.translation
         light_data.normal = Direction.from_vector(direction)
-        
+
         # Get samples from custom property or default
         if "samples" in light_obj:
             light_data.samples = light_obj["samples"]
@@ -397,16 +465,16 @@ def export_light(light_obj) -> Light:
 def export_shape(obj, ShapeClass):
     """Generic export for shapes with motion data."""
     mat = export_material(obj)
-    
+
     base_scale = obj.matrix_world.to_scale()
     dims = obj.dimensions
-    
+
     if ShapeClass in [Sphere, Cube]:
         # Unit size 2.0 (-1 to 1)
         sx = (dims.x / 2.0) * (-1.0 if base_scale.x < 0 else 1.0)
         sy = (dims.y / 2.0) * (-1.0 if base_scale.y < 0 else 1.0)
         sz = (dims.z / 2.0) * (-1.0 if base_scale.z < 0 else 1.0)
-        
+
         # Check motion
         has_motion, matrix_t0, matrix_t1 = get_motion_data(obj)
 
@@ -416,7 +484,7 @@ def export_shape(obj, ShapeClass):
                 location=Point.from_vector(obj.matrix_world.translation),
                 rotation=Point.from_vector(obj.matrix_world.to_euler()),
                 scale=Point(sx, sy, sz),
-                material=mat
+                material=mat,
             )
         elif ShapeClass == Cube:
             shape = Cube(
@@ -424,7 +492,7 @@ def export_shape(obj, ShapeClass):
                 translation=Point.from_vector(obj.matrix_world.translation),
                 rotation=Point.from_vector(obj.matrix_world.to_euler()),
                 scale=Point(sx, sy, sz),
-                material=mat
+                material=mat,
             )
 
         if has_motion:
@@ -451,7 +519,8 @@ def export_shape(obj, ShapeClass):
         raw_width = obj.dimensions.x / s_x
         calc_minor = raw_height / 2.0
         calc_major = (raw_width / 2.0) - calc_minor
-        if calc_major <= 0: calc_major = 0.1
+        if calc_major <= 0:
+            calc_major = 0.1
 
         has_motion, matrix_t0, matrix_t1 = get_motion_data(obj)
         shape = Torus(
@@ -461,7 +530,7 @@ def export_shape(obj, ShapeClass):
             scale=Point.from_vector(scale),
             major_radius=calc_major,
             minor_radius=calc_minor,
-            material=mat
+            material=mat,
         )
         if has_motion:
             shape.motion_blur = True
@@ -483,7 +552,7 @@ def export_shape(obj, ShapeClass):
             scale=Point.from_vector(scale),
             radius=calc_radius,
             depth=calc_depth,
-            material=mat
+            material=mat,
         )
         if has_motion:
             shape.motion_blur = True
@@ -495,17 +564,25 @@ def export_shape(obj, ShapeClass):
 
 
 def write_material(f, material: Material):
-    f.write(f"material_diffuse {material.diffuse_color.x} {material.diffuse_color.y} {material.diffuse_color.z}\n")
-    f.write(f"material_specular {material.specular_color.x} {material.specular_color.y} {material.specular_color.z}\n")
-    f.write(f"material_ambient {material.ambient_color.x} {material.ambient_color.y} {material.ambient_color.z}\n")
+    f.write(
+        f"material_diffuse {material.diffuse_color.x} {material.diffuse_color.y} {material.diffuse_color.z}\n"
+    )
+    f.write(
+        f"material_specular {material.specular_color.x} {material.specular_color.y} {material.specular_color.z}\n"
+    )
+    f.write(
+        f"material_ambient {material.ambient_color.x} {material.ambient_color.y} {material.ambient_color.z}\n"
+    )
     f.write(f"material_shininess {material.shininess}\n")
-    f.write(f"material_glossiness {material.glossiness}\n") # Export glossiness
+    f.write(f"material_glossiness {material.glossiness}\n")  # Export glossiness
     f.write(f"material_reflectivity {material.reflectivity}\n")
     f.write(f"material_transparency {material.transparency}\n")
     f.write(f"material_refractive_index {material.refractive_index}\n")
 
     if hasattr(material, "emission_strength") and material.emission_strength > 0.0:
-        f.write(f"material_emission {material.emission_color.x} {material.emission_color.y} {material.emission_color.z}\n")
+        f.write(
+            f"material_emission {material.emission_color.x} {material.emission_color.y} {material.emission_color.z}\n"
+        )
         f.write(f"material_emission_strength {material.emission_strength}\n")
 
     if hasattr(material, "subsurface") and material.subsurface > 0.0:
@@ -536,14 +613,17 @@ def export_to_text(scene_data, filepath):
                 if node.type == "BACKGROUND":
                     bg_color = node.inputs["Color"].default_value
                     bg_strength = node.inputs["Strength"].default_value
-                    f.write(f"background_color {bg_color[0]} {bg_color[1]} {bg_color[2]}\n")
+                    f.write(
+                        f"background_color {bg_color[0]} {bg_color[1]} {bg_color[2]}\n"
+                    )
                     f.write(f"background_strength {bg_strength}\n")
                     break
         else:
             f.write("background_color 0.05 0.05 0.05\n")
             f.write("background_strength 1.0\n")
 
-        if scene.world: f.write(f"ambient_light 0.1 0.1 0.1\n")
+        if scene.world:
+            f.write(f"ambient_light 0.1 0.1 0.1\n")
         f.write(f"frame_current {scene.frame_current}\n")
         f.write(f"frame_start {scene.frame_start}\n")
         f.write(f"frame_end {scene.frame_end}\n")
@@ -559,8 +639,12 @@ def export_to_text(scene_data, filepath):
         for cam in scene_data["cameras"]:
             f.write(f"name {cam.name}\n")
             f.write(f"location {cam.location.x} {cam.location.y} {cam.location.z}\n")
-            f.write(f"gaze {cam.gaze_direction.x} {cam.gaze_direction.y} {cam.gaze_direction.z}\n")
-            f.write(f"up {cam.up_direction.x} {cam.up_direction.y} {cam.up_direction.z}\n")
+            f.write(
+                f"gaze {cam.gaze_direction.x} {cam.gaze_direction.y} {cam.gaze_direction.z}\n"
+            )
+            f.write(
+                f"up {cam.up_direction.x} {cam.up_direction.y} {cam.up_direction.z}\n"
+            )
             f.write(f"focal {cam.focal_length}\n")
             f.write(f"sensor {cam.sensor_width} {cam.sensor_height}\n")
             f.write(f"resolution {cam.film_resolution_x} {cam.film_resolution_y}\n")
@@ -579,7 +663,9 @@ def export_to_text(scene_data, filepath):
         f.write(f"LIGHTS {len(scene_data['lights'])}\n")
         for light in scene_data["lights"]:
             f.write(f"name {light.name}\n")
-            f.write(f"location {light.location.x} {light.location.y} {light.location.z}\n")
+            f.write(
+                f"location {light.location.x} {light.location.y} {light.location.z}\n"
+            )
             f.write(f"intensity {light.intensity}\n")
             f.write(f"color {light.color.x} {light.color.y} {light.color.z}\n")
             f.write(f"light_type {light.light_type}\n")
@@ -592,11 +678,15 @@ def export_to_text(scene_data, filepath):
                 f.write(f"area_size {light.area_size_x} {light.area_size_y}\n")
                 # Export area light normal and samples
                 if hasattr(light, "normal") and light.normal:
-                     f.write(f"normal {light.normal.x} {light.normal.y} {light.normal.z}\n")
+                    f.write(
+                        f"normal {light.normal.x} {light.normal.y} {light.normal.z}\n"
+                    )
                 if hasattr(light, "samples"):
-                     f.write(f"samples {light.samples}\n")
+                    f.write(f"samples {light.samples}\n")
             if light.light_type == "SUN":
-                f.write(f"direction {light.direction.x} {light.direction.y} {light.direction.z}\n")
+                f.write(
+                    f"direction {light.direction.x} {light.direction.y} {light.direction.z}\n"
+                )
                 f.write(f"angle {light.angle}\n")
 
             f.write(f"cast_shadows {1 if light.cast_shadows else 0}\n")
@@ -605,63 +695,103 @@ def export_to_text(scene_data, filepath):
         # Write shape data function
         def write_shape_data(shape, has_pos=False, has_trans=False):
             f.write(f"name {shape.name}\n")
-            if has_pos: f.write(f"location {shape.location.x} {shape.location.y} {shape.location.z}\n")
-            if has_trans: f.write(f"translation {shape.translation.x} {shape.translation.y} {shape.translation.z}\n")
-            if hasattr(shape, "rotation"): f.write(f"rotation {shape.rotation.x} {shape.rotation.y} {shape.rotation.z}\n")
-            if hasattr(shape, "scale"): f.write(f"scale {shape.scale.x} {shape.scale.y} {shape.scale.z}\n")
-            if hasattr(shape, "radius"): f.write(f"radius {shape.radius}\n")
-            if hasattr(shape, "depth"): f.write(f"depth {shape.depth}\n")
-            if hasattr(shape, "major_radius"): f.write(f"major_radius {shape.major_radius}\n")
-            if hasattr(shape, "minor_radius"): f.write(f"minor_radius {shape.minor_radius}\n")
+            if has_pos:
+                f.write(
+                    f"location {shape.location.x} {shape.location.y} {shape.location.z}\n"
+                )
+            if has_trans:
+                f.write(
+                    f"translation {shape.translation.x} {shape.translation.y} {shape.translation.z}\n"
+                )
+            if hasattr(shape, "rotation"):
+                f.write(
+                    f"rotation {shape.rotation.x} {shape.rotation.y} {shape.rotation.z}\n"
+                )
+            if hasattr(shape, "scale"):
+                f.write(f"scale {shape.scale.x} {shape.scale.y} {shape.scale.z}\n")
+            if hasattr(shape, "radius"):
+                f.write(f"radius {shape.radius}\n")
+            if hasattr(shape, "depth"):
+                f.write(f"depth {shape.depth}\n")
+            if hasattr(shape, "major_radius"):
+                f.write(f"major_radius {shape.major_radius}\n")
+            if hasattr(shape, "minor_radius"):
+                f.write(f"minor_radius {shape.minor_radius}\n")
             if hasattr(shape, "points"):
                 f.write(f"points {len(shape.points)}\n")
-                for pt in shape.points: f.write(f"{pt.x} {pt.y} {pt.z}\n")
-            
+                for pt in shape.points:
+                    f.write(f"{pt.x} {pt.y} {pt.z}\n")
+
             # Motion blur data - export full transformation matrices
-            if shape.motion_blur and hasattr(shape, 'matrix_t0') and hasattr(shape, 'matrix_t1'):
+            if (
+                shape.motion_blur
+                and hasattr(shape, "matrix_t0")
+                and hasattr(shape, "matrix_t1")
+            ):
                 f.write(f"motion_blur 1\n")
                 # Write transform matrix at t=0 (4x4 matrix, row-major)
                 f.write(f"matrix_t0\n")
                 for row in range(4):
-                    f.write(f"{shape.matrix_t0[row][0]} {shape.matrix_t0[row][1]} {shape.matrix_t0[row][2]} {shape.matrix_t0[row][3]}\n")
+                    f.write(
+                        f"{shape.matrix_t0[row][0]} {shape.matrix_t0[row][1]} {shape.matrix_t0[row][2]} {shape.matrix_t0[row][3]}\n"
+                    )
                 # Write transform matrix at t=1 (4x4 matrix, row-major)
                 f.write(f"matrix_t1\n")
                 for row in range(4):
-                    f.write(f"{shape.matrix_t1[row][0]} {shape.matrix_t1[row][1]} {shape.matrix_t1[row][2]} {shape.matrix_t1[row][3]}\n")
-            
+                    f.write(
+                        f"{shape.matrix_t1[row][0]} {shape.matrix_t1[row][1]} {shape.matrix_t1[row][2]} {shape.matrix_t1[row][3]}\n"
+                    )
+
             f.write(f"visible {1 if shape.visible else 0}\n")
             write_material(f, shape.material)
 
         f.write(f"SPHERES {len(scene_data['spheres'])}\n")
-        for s in scene_data["spheres"]: write_shape_data(s, has_pos=True)
+        for s in scene_data["spheres"]:
+            write_shape_data(s, has_pos=True)
 
         f.write(f"CUBES {len(scene_data['cubes'])}\n")
-        for c in scene_data["cubes"]: write_shape_data(c, has_trans=True)
+        for c in scene_data["cubes"]:
+            write_shape_data(c, has_trans=True)
 
         f.write(f"PLANES {len(scene_data['planes'])}\n")
-        for p in scene_data["planes"]: write_shape_data(p)
+        for p in scene_data["planes"]:
+            write_shape_data(p)
 
         f.write(f"TORUSES {len(scene_data['toruses'])}\n")
-        for t in scene_data["toruses"]: write_shape_data(t, has_pos=True)
+        for t in scene_data["toruses"]:
+            write_shape_data(t, has_pos=True)
 
         f.write(f"CYLINDERS {len(scene_data['cylinders'])}\n")
-        for c in scene_data["cylinders"]: write_shape_data(c, has_pos=True)
+        for c in scene_data["cylinders"]:
+            write_shape_data(c, has_pos=True)
 
         f.write(f"CONES {len(scene_data['cones'])}\n")
-        for c in scene_data["cones"]: write_shape_data(c, has_pos=True)
+        for c in scene_data["cones"]:
+            write_shape_data(c, has_pos=True)
 
 
 def export_scene():
-    scene_data = {"cameras": [], "lights": [], "spheres": [], "cubes": [], "planes": [], "toruses": [], "cylinders": [], "cones": []}
+    scene_data = {
+        "cameras": [],
+        "lights": [],
+        "spheres": [],
+        "cubes": [],
+        "planes": [],
+        "toruses": [],
+        "cylinders": [],
+        "cones": [],
+    }
     for obj in bpy.data.objects:
-        if obj.type == "CAMERA": scene_data["cameras"].append(export_camera(obj))
-        elif obj.type == "LIGHT": scene_data["lights"].append(export_light(obj))
+        if obj.type == "CAMERA":
+            scene_data["cameras"].append(export_camera(obj))
+        elif obj.type == "LIGHT":
+            scene_data["lights"].append(export_light(obj))
         elif obj.type == "MESH":
             obj_name = obj.name.lower()
             mesh_name = obj.data.name.lower()
             obj_type = None
             for t in ["sphere", "cube", "plane", "torus", "cylinder", "cone"]:
-                if t in obj_name: 
+                if t in obj_name:
                     obj_type = t
                     break
             if not obj_type:
@@ -669,25 +799,42 @@ def export_scene():
                     if t in mesh_name:
                         obj_type = t
                         break
-            
-            if obj_type == "sphere": scene_data["spheres"].append(export_shape(obj, Sphere))
-            elif obj_type == "cube": scene_data["cubes"].append(export_shape(obj, Cube))
-            elif obj_type == "plane": scene_data["planes"].append(export_shape(obj, Plane))
-            elif obj_type == "torus": scene_data["toruses"].append(export_shape(obj, Torus))
-            elif obj_type == "cylinder": scene_data["cylinders"].append(export_shape(obj, Cylinder))
-            elif obj_type == "cone": scene_data["cones"].append(export_shape(obj, Cone))
+
+            if obj_type == "sphere":
+                scene_data["spheres"].append(export_shape(obj, Sphere))
+            elif obj_type == "cube":
+                scene_data["cubes"].append(export_shape(obj, Cube))
+            elif obj_type == "plane":
+                scene_data["planes"].append(export_shape(obj, Plane))
+            elif obj_type == "torus":
+                scene_data["toruses"].append(export_shape(obj, Torus))
+            elif obj_type == "cylinder":
+                scene_data["cylinders"].append(export_shape(obj, Cylinder))
+            elif obj_type == "cone":
+                scene_data["cones"].append(export_shape(obj, Cone))
 
     return scene_data
+
 
 def main():
     log_path = os.path.join(os.path.dirname(__file__), "export_log.txt")
     import sys
+
     log_file = open(log_path, "w")
     original_stdout = sys.stdout
+
     class DualWriter:
-        def __init__(self, f1, f2): self.f1, self.f2 = f1, f2
-        def write(self, t): self.f1.write(t); self.f2.write(t)
-        def flush(self): self.f1.flush(); self.f2.flush()
+        def __init__(self, f1, f2):
+            self.f1, self.f2 = f1, f2
+
+        def write(self, t):
+            self.f1.write(t)
+            self.f2.write(t)
+
+        def flush(self):
+            self.f1.flush()
+            self.f2.flush()
+
     sys.stdout = DualWriter(original_stdout, log_file)
 
     scene_data = export_scene()
@@ -700,6 +847,7 @@ def main():
 
     sys.stdout = original_stdout
     log_file.close()
+
 
 if __name__ == "__main__":
     main()

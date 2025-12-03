@@ -11,7 +11,7 @@
 // We use 'long double' for internal calculations to prevent the "swirled" artifacts
 // caused by catastrophic cancellation in the quartic discriminant.
 
-static const long double PEPS = 1e-10L; // High precision epsilon
+static const long double PEPS = 1e-10L;  // High precision epsilon
 
 // Helper to solve quadratic equation x^2 + bx + c = 0
 // Returns number of real roots
@@ -61,7 +61,8 @@ static inline int solve_cubic(long double a, long double b, long double c, doubl
   } else {
     // Three distinct real roots (casus irreducibilis)
     // This is where standard float often fails and creates holes
-    // CRITICAL FIX: Use std::clamp to prevent acos from receiving values > 1.0 due to numerical noise
+    // CRITICAL FIX: Use std::clamp to prevent acos from receiving values > 1.0 due to numerical
+    // noise
     long double acos_arg = -0.5L * q / std::sqrt(-cube_p / 27.0L);
     acos_arg = std::clamp(acos_arg, -1.0L, 1.0L);
     long double phi = std::acos(acos_arg);
@@ -81,7 +82,7 @@ static inline int solve_quartic(const double* __restrict c_in, double* __restric
   for (int i = 0; i < 5; i++) c[i] = (long double)c_in[i];
 
   // Normalize so leading coefficient is 1
-  if (std::abs(c[4]) < PEPS) return 0; // Not a quartic
+  if (std::abs(c[4]) < PEPS) return 0;  // Not a quartic
 
   long double inv_a = 1.0L / c[4];
   long double A = c[3] * inv_a;

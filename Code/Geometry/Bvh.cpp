@@ -9,10 +9,13 @@
 
 using Utils::Logger;
 
+// External counter for intersection tests (defined in raytracer.cpp)
 extern thread_local long long g_intersection_tests;
 
+// Compute bounding box that encompasses all specified objects
 BoundingBox compute_bounding_box_for_objects(std::vector<int> &object_indices,
                                              const Scene &scene) {
+  // Handle empty case
   if (object_indices.empty()) {
     Logger::instance().Debug().Msg("Computing bbox for empty object set");
     return BoundingBox{Point(0, 0, 0), Point(0, 0, 0)};
@@ -23,6 +26,7 @@ BoundingBox compute_bounding_box_for_objects(std::vector<int> &object_indices,
       .Int("object_count", object_indices.size())
       .Msg("Computing bounding box for objects");
 
+  // Start with first object's bounding box
   BoundingBox result;
   bool first = true;
 
@@ -36,6 +40,7 @@ BoundingBox compute_bounding_box_for_objects(std::vector<int> &object_indices,
   for (int idx : object_indices) {
     BoundingBox obj_bbox;
 
+    // Get bounding box based on object type
     if (idx < num_spheres) {
       obj_bbox = get_sphere_bounding_box(scene.spheres[idx]);
     } else if (idx < num_spheres + num_cubes) {
@@ -57,10 +62,12 @@ BoundingBox compute_bounding_box_for_objects(std::vector<int> &object_indices,
       obj_bbox = get_cone_bounding_box(scene.cones[cone_idx]);
     }
 
+    // Merge bounding boxes
     if (first) {
       result = obj_bbox;
       first = false;
     } else {
+      // Expand result to include obj_bbox
       result.min.x = std::min(result.min.x, obj_bbox.min.x);
       result.min.y = std::min(result.min.y, obj_bbox.min.y);
       result.min.z = std::min(result.min.z, obj_bbox.min.z);
@@ -73,6 +80,8 @@ BoundingBox compute_bounding_box_for_objects(std::vector<int> &object_indices,
   return result;
 }
 
+// Choose which axis to split on (returns 0=X, 1=Y, 2=Z)
+// Chooses the axis with the largest extent
 int choose_split_axis(const BoundingBox &bbox) {
   Vec3 extent = bbox.max - bbox.min;
 
@@ -113,7 +122,7 @@ Point get_obj_center(const Scene &scene, int object_index) {
     int plane_idx = object_index - num_spheres - num_cubes;
     const auto &plane = scene.planes[plane_idx];
     if (plane.points.empty())
-      return Point(0, 0, 0);
+      return Point(0, 0, 0); // Fix division by zero
     Point center(0, 0, 0);
     for (const auto &p : plane.points) {
       center = center + p;
@@ -146,6 +155,7 @@ partition_objs(const std::vector<int> &object_indices, const Scene &scene,
       .Int("split_axis", axis)
       .Msg("Partitioning objects");
 
+  // Handle edge case: too few objects to partition
   if (object_indices.size() <= 1) {
     Logger::instance().Debug().Msg("Too few objects to partition");
     return {object_indices, {}};
@@ -153,6 +163,7 @@ partition_objs(const std::vector<int> &object_indices, const Scene &scene,
 
   std::vector<int> sorted_indices = object_indices;
 
+  // Use nth_element for O(N) median finding instead of O(N log N) sort
   int mid = sorted_indices.size() / 2;
   std::nth_element(sorted_indices.begin(), sorted_indices.begin() + mid,
                    sorted_indices.end(), [&scene, axis](int a, int b) {
@@ -161,6 +172,7 @@ partition_objs(const std::vector<int> &object_indices, const Scene &scene,
                      return center_a[axis] < center_b[axis];
                    });
 
+  // Ensure at least one object in left (prevents empty left partition)
   if (mid == 0)
     mid = 1;
 
@@ -178,6 +190,7 @@ partition_objs(const std::vector<int> &object_indices, const Scene &scene,
   return {left_objects, right_objects};
 }
 
+// Recursively build BVH tree
 std::unique_ptr<BVHNode> build_bvh(std::vector<int> &object_indices,
                                    const Scene &scene, int depth) {
   Logger::instance()
@@ -187,8 +200,10 @@ std::unique_ptr<BVHNode> build_bvh(std::vector<int> &object_indices,
       .Msg("Building BVH node");
 
   auto node = std::make_unique<BVHNode>();
+
   node->bbox = compute_bounding_box_for_objects(object_indices, scene);
 
+  // Fix depth check: >= MAX_DEPTH
   if (object_indices.size() <= MAX_LEAF_SIZE || depth >= MAX_DEPTH) {
     node->object_indices = object_indices;
     Logger::instance()
@@ -200,8 +215,10 @@ std::unique_ptr<BVHNode> build_bvh(std::vector<int> &object_indices,
   }
 
   int axis = choose_split_axis(node->bbox);
+
   auto [left_objs, right_objs] = partition_objs(object_indices, scene, axis);
 
+  // Fix unbalanced partition edge case: if one side is empty, make this a leaf
   if (left_objs.empty() || right_objs.empty()) {
     node->object_indices = object_indices;
     Logger::instance()
@@ -226,7 +243,7 @@ std::unique_ptr<BVHNode> build_bvh(std::vector<int> &object_indices,
 
 bool intersect_obj(const Ray &ray, const Scene &scene, int idx,
                    HitRecord &hit_record, double t_min, double t_max) {
-  g_intersection_tests++;
+  g_intersection_tests++; // Count each object intersection test
 
   int num_spheres = scene.spheres.size();
   int num_cubes = scene.cubes.size();
@@ -235,6 +252,7 @@ bool intersect_obj(const Ray &ray, const Scene &scene, int idx,
   int num_cylinders = scene.cylinders.size();
   int num_cones = scene.cones.size();
 
+  // Check visibility flag
   bool visible = true;
   if (idx < num_spheres)
     visible = scene.spheres[idx].visible;
@@ -259,6 +277,7 @@ bool intersect_obj(const Ray &ray, const Scene &scene, int idx,
   if (!visible)
     return false;
 
+  // Get intersection based on object type
   if (idx < num_spheres) {
     return intersect_sphere(scene.spheres[idx], ray, hit_record, t_min, t_max);
   } else if (idx < num_spheres + num_cubes) {
@@ -303,7 +322,8 @@ bool intersect_bvh(const Ray &ray, BVHNode *node, const Scene &scene,
     return hit_any;
   }
 
-  // Check both children to find closest hit
+  // Must check both children (can't short-circuit with ||)
+  // because we need to find the CLOSEST hit, not just ANY hit
   bool hit_left = intersect_bvh(ray, node->left.get(), scene, closest_hit,
                                 t_min, closest_t);
   bool hit_right = intersect_bvh(ray, node->right.get(), scene, closest_hit,
