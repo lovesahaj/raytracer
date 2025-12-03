@@ -41,6 +41,10 @@ void print_help(const char *program_name) {
       << "  --disable-motion-blur    Disable motion blur completely\n"
       << "  --depth-of-field <a> <d> Enable DOF with aperture f-stop a and focal distance d\n"
       << "  --disable-dof            Disable depth of field\n"
+      << "  --light-intensity <f>    Global light intensity multiplier (default: "
+      << g_config.light_intensity_factor << ")\n"
+      << "  --ambient-light <f>      Ambient light factor (default: "
+      << g_config.ambient_factor << ")\n"
       << "  --threads <n>            Number of rendering threads\n"
       << "  --log-level <level>      Set log level (debug, info, warn, error)\n"
       << "  --help                   Display this help message\n";
@@ -101,6 +105,10 @@ void parse_arguments(int argc, char *argv[]) {
     } else if (arg == "--disable-dof") {
       g_config.lens_aperture = 0.0;
       g_config.dof_flag_set = true;
+    } else if (arg == "--light-intensity" && i + 1 < argc) {
+      g_config.light_intensity_factor = std::atof(argv[++i]);
+    } else if (arg == "--ambient-light" && i + 1 < argc) {
+      g_config.ambient_factor = std::atof(argv[++i]);
     } else if (arg == "--threads" && i + 1 < argc) {
       g_config.num_threads = std::atoi(argv[++i]);
     } else if (arg == "--log-level" && i + 1 < argc) {
