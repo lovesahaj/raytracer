@@ -261,7 +261,7 @@ static double schlick_fresnel(double cosine, double eta_ratio) {
 }
 
 static Direction apply_normal_map(const HitRecord& hit, TextureManager& tm) {
-  if (!hit.material.normal_map.empty() && tm.has_texture(hit.material.normal_map)) {
+  if (g_config.enable_textures && !hit.material.normal_map.empty() && tm.has_texture(hit.material.normal_map)) {
     Color ns = tm.sample(hit.material.normal_map, hit.u, hit.v);
     Vec3 tan_normal(ns.r() * 2.0 - 1.0, ns.g() * 2.0 - 1.0, ns.b() * 2.0 - 1.0);
     tan_normal.x *= hit.material.bump_strength;
@@ -269,7 +269,7 @@ static Direction apply_normal_map(const HitRecord& hit, TextureManager& tm) {
     tan_normal = tan_normal.norm();
     return (hit.tangent * tan_normal.x + hit.bitangent * tan_normal.y + hit.normal * tan_normal.z)
         .norm();
-  } else if (!hit.material.bump_map.empty() && tm.has_texture(hit.material.bump_map)) {
+  } else if (g_config.enable_textures && !hit.material.bump_map.empty() && tm.has_texture(hit.material.bump_map)) {
     // Simplified bump mapping logic
     double delta = 0.001;
     auto get_h = [&](double u, double v) {
@@ -291,7 +291,7 @@ ShadingResult Raytracer::shade_separated(const HitRecord& hit, const Direction& 
   Color base_color = hit.material.diffuse_color;
   Color ambient_color = hit.material.ambient_color;
 
-  if (hit.material.has_texture && !hit.material.texture_file.empty()) {
+  if (g_config.enable_textures && hit.material.has_texture && !hit.material.texture_file.empty()) {
     if (g_texture_manager.has_texture(hit.material.texture_file)) {
       Color tex = g_texture_manager.sample(hit.material.texture_file, hit.u, hit.v);
       // Note: PPM textures are already in linear space, no gamma decode needed
@@ -438,7 +438,7 @@ Color Raytracer::trace(const Ray& ray, int depth) {
 
       // Sample texture for metal tinting (same as in shade())
       Color reflection_tint = hit.material.diffuse_color;
-      if (hit.material.has_texture && !hit.material.texture_file.empty()) {
+      if (g_config.enable_textures && hit.material.has_texture && !hit.material.texture_file.empty()) {
         if (g_texture_manager.has_texture(hit.material.texture_file)) {
           Color tex = g_texture_manager.sample(hit.material.texture_file, hit.u, hit.v);
           // Note: PPM textures are already in linear space, no gamma decode needed
