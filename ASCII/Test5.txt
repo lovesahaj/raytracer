@@ -68,7 +68,7 @@ visible 1
 material_diffuse 0.800000011920929 0.10000000149011612 0.10000000149011612
 material_specular 0.5 0.5 0.5
 material_ambient 0.0800000011920929 0.010000000149011612 0.010000000149011612
-material_shininess 115.19999980926514
+material_shininess 92.2120161888249
 material_glossiness 0.8999999985098839
 material_reflectivity 0.8999999761581421
 material_transparency 0.0
@@ -119,7 +119,7 @@ visible 1
 material_diffuse 0.10000000149011612 0.30000001192092896 0.800000011920929
 material_specular 0.5 0.5 0.5
 material_ambient 0.010000000149011612 0.030000001192092896 0.0800000011920929
-material_shininess 102.39999961853027
+material_shininess 68.69200762904937
 material_glossiness 0.7999999970197678
 material_reflectivity 0.800000011920929
 material_transparency 0.0
@@ -135,7 +135,7 @@ visible 1
 material_diffuse 0.800000011920929 0.800000011920929 0.800000011920929
 material_specular 0.5 0.5 0.5
 material_ambient 0.0800000011920929 0.0800000011920929 0.0800000011920929
-material_shininess 64.0
+material_shininess 21.213203435596427
 material_glossiness 0.5
 material_reflectivity 0.0
 material_transparency 0.0
@@ -151,7 +151,7 @@ visible 1
 material_diffuse 1.0 0.765999972820282 0.335999995470047
 material_specular 0.5 0.5 0.5
 material_ambient 0.1 0.07659999728202821 0.033599999547004704
-material_shininess 115.19999980926514
+material_shininess 92.2120161888249
 material_glossiness 0.8999999985098839
 material_reflectivity 1.0
 material_transparency 0.0
@@ -178,7 +178,7 @@ visible 1
 material_diffuse 0.8999999761581421 0.6000000238418579 1.0
 material_specular 1.0 1.0 1.0
 material_ambient 0.08999999761581422 0.06000000238418579 0.1
-material_shininess 128.0
+material_shininess 120.0
 material_glossiness 1.0
 material_reflectivity 0.0
 material_transparency 1.0
