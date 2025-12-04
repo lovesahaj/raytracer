@@ -35,11 +35,8 @@ Ray Camera::get_ray(double x, double y, int width, int height,
   // v points up (cross product of w and u)
   Direction v = w.cross(u).norm();
 
-  // Step 3: Calculate viewport dimensions in world space
-  // CRITICAL: Use the output resolution aspect ratio, not sensor aspect ratio!
-  // The sensor dimensions (e.g., 36mm x 24mm = 3:2) may not match the output
-  // resolution (e.g., 1920x1080 = 16:9). We must use the resolution aspect
-  // ratio to avoid squishing the image.
+  // Calculate viewport dimensions using output resolution aspect ratio
+  // (not sensor aspect ratio) to avoid image distortion
   double resolution_aspect_ratio = static_cast<double>(width) / height;
 
   // Use focal length and sensor width to determine horizontal field of view

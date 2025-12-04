@@ -81,11 +81,9 @@ bool intersect_cube(const Cube& cube, const Ray& ray, HitRecord& hit, double t_m
   else
     object_normal = Vec3(0, 0, -1);  // -Z face
 
-  // Step 6: Transform results back to world space
   hit.intersection_point = transform.object_to_world_point(object_hit_point);
 
-  // CRITICAL FIX: Calculate world-space t from world-space hit point
-  // Using object-space t is WRONG when there's non-uniform scaling
+  // Calculate world-space t from world-space hit point to handle non-uniform scaling
   Vec3 world_offset = hit.intersection_point - ray.origin;
   hit.t = world_offset.length() / ray.direction.length();
 

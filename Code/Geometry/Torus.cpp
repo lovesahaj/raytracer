@@ -60,9 +60,7 @@ static inline int solve_cubic(long double a, long double b, long double c, doubl
     return 2;
   } else {
     // Three distinct real roots (casus irreducibilis)
-    // This is where standard float often fails and creates holes
-    // CRITICAL FIX: Use std::clamp to prevent acos from receiving values > 1.0 due to numerical
-    // noise
+    // Clamp acos argument to [-1, 1] to handle numerical precision errors
     long double acos_arg = -0.5L * q / std::sqrt(-cube_p / 27.0L);
     acos_arg = std::clamp(acos_arg, -1.0L, 1.0L);
     long double phi = std::acos(acos_arg);
@@ -123,8 +121,7 @@ static inline int solve_quartic(const double* __restrict c_in, double* __restric
     // Pick a valid z (any real root works)
     long double z = cubic_roots[0];
 
-    // FIX: Avoid negative sqrt due to numerical noise
-    // If z is slightly negative due to precision, clamp to 0 (tangent case)
+    // Clamp slightly negative z values to 0 to handle numerical precision
     if (z < 0 && z > -1e-5L) z = 0;
 
     long double sqrt_z = std::sqrt(std::max(0.0L, z));
@@ -162,8 +159,8 @@ bool intersect_torus(const Torus& torus, const Ray& ray, HitRecord& hit, double 
 
   Ray r = transform.world_to_object_ray(ray);
 
-  // CRITICAL FIX 1: Normalize direction for coefficient stability
-  // We must track the scaling factor to convert back to world t later
+  // Normalize direction for numerical stability in quartic coefficients
+  // Track scaling factor to convert back to world t later
   double dir_length = r.direction.length();
   r.direction = r.direction.norm();
 
@@ -220,11 +217,10 @@ bool intersect_torus(const Torus& torus, const Ray& ray, HitRecord& hit, double 
 
   if (!hit_something) return false;
 
-  // CRITICAL FIX 2: Newton-Raphson Refinement (OPTIMIZED - Adaptive)
-  // The analytic root is noisy. We must refine it to snap to the surface.
+  // Newton-Raphson refinement to snap to the implicit surface
   // T(x,y,z) = (x^2 + y^2 + z^2 + R^2 - r^2)^2 - 4R^2(x^2 + y^2) = 0
   double t_refined = current_t;
-  for (int i = 0; i < 3; i++) {  // Reduced from 5 - most converge in 1-2 iterations
+  for (int i = 0; i < 3; i++) {
     Point p = r.origin + r.direction * t_refined;
     double sum_sq = p.x * p.x + p.y * p.y + p.z * p.z;
     double xy_sq = p.x * p.x + p.y * p.y;

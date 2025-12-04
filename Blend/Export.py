@@ -81,7 +81,6 @@ def export_material(obj) -> Material:
             elif node.type == "BSDF_REFRACTION":
                 refract_bsdf = node
 
-    # Helper to find texture node
     def find_texture_node(socket):
         if not socket.is_linked:
             return None
@@ -96,7 +95,6 @@ def export_material(obj) -> Material:
             if n.type == "TEX_IMAGE":
                 return n
 
-            # Pass through common nodes
             if n.type in [
                 "MIX_RGB",
                 "MIX_SHADER",
@@ -104,7 +102,6 @@ def export_material(obj) -> Material:
                 "BSDF_DIFFUSE",
                 "BSDF_GLOSSY",
             ]:
-                # Check inputs
                 for input_name in ["Color", "Color1", "Color2", "Base Color", "Shader"]:
                     if input_name in n.inputs and n.inputs[input_name].is_linked:
                         res = traverse(n.inputs[input_name].links[0].from_node)
@@ -120,7 +117,6 @@ def export_material(obj) -> Material:
                 "MATH",
                 "VECT_MATH",
             ]:
-                # Try generic inputs
                 for input_socket in n.inputs:
                     if (
                         input_socket.type in ["RGBA", "VECTOR", "VALUE"]
@@ -184,8 +180,6 @@ def export_material(obj) -> Material:
 
             if "Metallic" in principled.inputs:
                 metallic = principled.inputs["Metallic"].default_value
-                # FIX: Pass through metallic value directly for PBR workflow
-                # The raytracer will handle the metal/dielectric distinction
                 material.reflectivity = metallic
 
             transmission_found = False
@@ -248,7 +242,6 @@ def export_material(obj) -> Material:
         elif diffuse_bsdf and glossy_bsdf and mix_shader:
             diffuse_color = diffuse_bsdf.inputs["Color"].default_value
 
-            # Texture handling for Diffuse/Glossy mix
             tex_node = find_texture_node(diffuse_bsdf.inputs["Color"])
             if tex_node and tex_node.image:
                 image_path = bpy.path.abspath(tex_node.image.filepath)
@@ -317,7 +310,6 @@ def export_material(obj) -> Material:
             )
             material.emission_strength = emission_strength
 
-        # Normal/Bump maps
         for node in nodes:
             if node.type == "NORMAL_MAP" and node.inputs["Color"].is_linked:
                 link = node.inputs["Color"].links[0]
@@ -336,7 +328,6 @@ def export_material(obj) -> Material:
                 break
 
     else:
-        # Legacy material
         material.diffuse_color = Color(
             mat.diffuse_color[0], mat.diffuse_color[1], mat.diffuse_color[2]
         )
@@ -344,7 +335,7 @@ def export_material(obj) -> Material:
             mat.specular_color[0], mat.specular_color[1], mat.specular_color[2]
         )
         material.shininess = mat.specular_intensity * 128.0
-        material.glossiness = 0.0  # Default
+        material.glossiness = 0.0
 
     return material
 
@@ -357,14 +348,10 @@ def get_motion_data(obj):
     scene = bpy.context.scene
     current_frame = scene.frame_current
 
-    # Get current transform (t=0)
     matrix_t0 = obj.matrix_world.copy()
 
-    # Advance 1 frame to get next transform (t=1)
-    # Use try/finally to ensure frame is reset
     try:
         scene.frame_set(current_frame + 1)
-        # Get full transformation matrix at next frame
         matrix_t1 = obj.matrix_world.copy()
         return True, matrix_t0, matrix_t1
     finally:
@@ -395,9 +382,7 @@ def export_camera(cam_obj) -> Camera:
     )
     camera.dof_enabled = cam.dof.use_dof if hasattr(cam, "dof") else False
 
-    # Export focus distance - calculate from focus object if it exists
     if hasattr(cam, "dof") and cam.dof.focus_object:
-        # Calculate distance to focus object
         focus_obj = cam.dof.focus_object
         camera.focus_distance = (cam_obj.location - focus_obj.location).length
         print(
@@ -437,12 +422,10 @@ def export_light(light_obj) -> Light:
             light.size_y if light.shape in ["RECTANGLE", "ELLIPSE"] else light.size
         )
 
-        # Export normal (direction) for area light
         matrix = light_obj.matrix_world
         direction = matrix @ mathutils.Vector((0, 0, -1)) - matrix.translation
         light_data.normal = Direction.from_vector(direction)
 
-        # Get samples from custom property or default
         if "samples" in light_obj:
             light_data.samples = light_obj["samples"]
         else:
@@ -470,12 +453,10 @@ def export_shape(obj, ShapeClass):
     dims = obj.dimensions
 
     if ShapeClass in [Sphere, Cube]:
-        # Unit size 2.0 (-1 to 1)
         sx = (dims.x / 2.0) * (-1.0 if base_scale.x < 0 else 1.0)
         sy = (dims.y / 2.0) * (-1.0 if base_scale.y < 0 else 1.0)
         sz = (dims.z / 2.0) * (-1.0 if base_scale.z < 0 else 1.0)
 
-        # Check motion
         has_motion, matrix_t0, matrix_t1 = get_motion_data(obj)
 
         if ShapeClass == Sphere:
@@ -511,7 +492,6 @@ def export_shape(obj, ShapeClass):
             shape.matrix_t1 = matrix_t1
 
     elif ShapeClass == Torus:
-        # Torus logic
         location, _, scale = obj.matrix_world.decompose()
         s_x = scale.x if scale.x != 0 else 1.0
         s_z = scale.z if scale.z != 0 else 1.0
@@ -574,7 +554,7 @@ def write_material(f, material: Material):
         f"material_ambient {material.ambient_color.x} {material.ambient_color.y} {material.ambient_color.z}\n"
     )
     f.write(f"material_shininess {material.shininess}\n")
-    f.write(f"material_glossiness {material.glossiness}\n")  # Export glossiness
+    f.write(f"material_glossiness {material.glossiness}\n")
     f.write(f"material_reflectivity {material.reflectivity}\n")
     f.write(f"material_transparency {material.transparency}\n")
     f.write(f"material_refractive_index {material.refractive_index}\n")
@@ -623,7 +603,7 @@ def export_to_text(scene_data, filepath):
             f.write("background_strength 1.0\n")
 
         if scene.world:
-            f.write(f"ambient_light 0.1 0.1 0.1\n")
+            f.write("ambient_light 0.1 0.1 0.1\n")
         f.write(f"frame_current {scene.frame_current}\n")
         f.write(f"frame_start {scene.frame_start}\n")
         f.write(f"frame_end {scene.frame_end}\n")
@@ -634,7 +614,6 @@ def export_to_text(scene_data, filepath):
         f.write("transmission_bounces 12\n")
         f.write("\n")
 
-        # Cameras
         f.write(f"CAMERAS {len(scene_data['cameras'])}\n")
         for cam in scene_data["cameras"]:
             f.write(f"name {cam.name}\n")
@@ -659,7 +638,6 @@ def export_to_text(scene_data, filepath):
                 f.write(f"clip_start {cam.clip_start}\n")
                 f.write(f"clip_end {cam.clip_end}\n")
 
-        # Lights
         f.write(f"LIGHTS {len(scene_data['lights'])}\n")
         for light in scene_data["lights"]:
             f.write(f"name {light.name}\n")
@@ -692,7 +670,6 @@ def export_to_text(scene_data, filepath):
             f.write(f"cast_shadows {1 if light.cast_shadows else 0}\n")
             f.write(f"shadow_soft_size {light.shadow_soft_size}\n")
 
-        # Write shape data function
         def write_shape_data(shape, has_pos=False, has_trans=False):
             f.write(f"name {shape.name}\n")
             if has_pos:
@@ -722,21 +699,18 @@ def export_to_text(scene_data, filepath):
                 for pt in shape.points:
                     f.write(f"{pt.x} {pt.y} {pt.z}\n")
 
-            # Motion blur data - export full transformation matrices
             if (
                 shape.motion_blur
                 and hasattr(shape, "matrix_t0")
                 and hasattr(shape, "matrix_t1")
             ):
-                f.write(f"motion_blur 1\n")
-                # Write transform matrix at t=0 (4x4 matrix, row-major)
-                f.write(f"matrix_t0\n")
+                f.write("motion_blur 1\n")
+                f.write("matrix_t0\n")
                 for row in range(4):
                     f.write(
                         f"{shape.matrix_t0[row][0]} {shape.matrix_t0[row][1]} {shape.matrix_t0[row][2]} {shape.matrix_t0[row][3]}\n"
                     )
-                # Write transform matrix at t=1 (4x4 matrix, row-major)
-                f.write(f"matrix_t1\n")
+                f.write("matrix_t1\n")
                 for row in range(4):
                     f.write(
                         f"{shape.matrix_t1[row][0]} {shape.matrix_t1[row][1]} {shape.matrix_t1[row][2]} {shape.matrix_t1[row][3]}\n"

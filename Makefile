@@ -49,10 +49,8 @@ RENDER_DIR = $(SRC_DIR)/Render
 # Include paths
 INCLUDES = -I$(SRC_DIR) -I$(CORE_DIR) -I$(MATH_DIR) -I$(GEOMETRY_DIR) -I$(IO_DIR) -I$(RENDER_DIR)
 
-# Update CXXFLAGS to include new paths
 # Performance build: O3 + aggressive optimizations
-# FIX: Removed -ffast-math which was causing NaN handling issues with implicit surfaces (torus)
-# -ffast-math assumes NaN never happens, breaking quartic solver checks
+# Note: -ffast-math is NOT used to preserve NaN handling for implicit surfaces (torus quartic solver)
 CXXFLAGS = -std=c++20 -Wall -Wextra -O3 -march=native -funroll-loops $(OPENMP_CFLAGS) $(INCLUDES)
 CXXFLAGS_DEBUG = -std=c++20 -Wall -Wextra -g -O0 $(OPENMP_CFLAGS) $(INCLUDES)
 

@@ -19,18 +19,11 @@
 
 using Utils::Logger;
 
-// FIX: Use atomic for thread-safe intersection test counting
-// Note: This is still extern-declared in Bvh.cpp as thread_local, but we'll
-// switch to atomic For now, keep thread_local for compatibility but document
-// the issue
 thread_local long long g_intersection_tests = 0;
 
-// Global texture manager (static to persist)
 static TextureManager g_texture_manager;
 
-// Constructor
 Raytracer::Raytracer(const Scene& scene) : scene(scene) {
-  // Build BVH on initialization
   Logger::instance().Info().Msg("Initializing Raytracer and building BVH...");
 
   int total_objects = scene.spheres.size() + scene.cubes.size() + scene.planes.size() +
@@ -62,7 +55,6 @@ Raytracer::Raytracer(const Scene& scene) : scene(scene) {
         .Msg("BVH Stats");
   }
 
-  // DEBUG: Print BVH root bounding box
   if (bvh_root) {
     Logger::instance()
         .Debug()
@@ -80,11 +72,7 @@ Raytracer::Raytracer(const Scene& scene) : scene(scene) {
 
 Raytracer::~Raytracer() = default;
 
-// Helper function for random number generation
 double Raytracer::random_double() {
-  // FIX: Use random_device to seed each thread differently
-  // The seed is computed once per thread, combining random_device with thread
-  // hash
   static thread_local std::mt19937 generator(
       std::random_device{}() ^ std::hash<std::thread::id>{}(std::this_thread::get_id()));
   static thread_local std::uniform_real_distribution<double> distribution(0.0, 1.0);
@@ -92,7 +80,6 @@ double Raytracer::random_double() {
 }
 
 void Raytracer::preload_textures() {
-  // Same implementation as before, but using member scene
   Logger::instance().Info().Msg("Preloading textures...");
   int loaded_count = 0;
 
@@ -119,7 +106,6 @@ void Raytracer::preload_textures() {
     check_and_load(plane.material.normal_map);
     check_and_load(plane.material.bump_map);
   }
-  // Add other shapes if needed
   Logger::instance().Info().Int("count", loaded_count).Msg("Preloaded textures");
 }
 
@@ -131,13 +117,10 @@ Point Raytracer::sample_area_light(const Light& light) {
   double u = random_double() - 0.5;
   double v = random_double() - 0.5;
 
-  // Construct basis from light normal
-  // Assuming light.normal is the direction the light faces
   Direction normal = light.normal;
-  if (normal.length_squared() < 0.1) normal = Direction(0, 0, -1);  // Fallback
+  if (normal.length_squared() < 0.1) normal = Direction(0, 0, -1);
   normal = normal.norm();
 
-  // Create orthonormal basis
   Direction light_right = (std::abs(normal.x) > 0.9) ? Direction(0, 1, 0) : Direction(1, 0, 0);
   light_right = normal.cross(light_right).norm();
   Direction light_up = normal.cross(light_right).norm();
@@ -146,11 +129,9 @@ Point Raytracer::sample_area_light(const Light& light) {
     Vec3 offset = light_right * (u * light.area_size_x) + light_up * (v * light.area_size_y);
     return light.location + offset;
   } else {
-    // Disk
     double r = std::sqrt(random_double());
     double theta = 2.0 * M_PI * random_double();
-    double x = r * std::cos(theta) * light.area_size_x;  // Use size_x as radius?
-    // Usually disk uses size_x/2 for radius
+    double x = r * std::cos(theta) * light.area_size_x;
     double radius_x = light.area_size_x / 2.0;
     double radius_y = light.area_size_y / 2.0;
 
@@ -161,17 +142,8 @@ Point Raytracer::sample_area_light(const Light& light) {
   }
 }
 
-// External helper functions from Bvh.cpp/Raytracer.cpp original need to be
-// accessible We need to check if intersect_bvh is declared in Bvh.h or
-// Raytracer.h. It is declared in Bvh.h. Wait, Raytracer.cpp previously
-// implemented intersect_scene_bvh, shadow_attenuation_bvh, etc. We need to
-// reimplement them as member functions.
-
 double Raytracer::compute_shadow(const Point& point, const Direction& normal, const Light& light) {
   int samples = (light.light_type == "AREA") ? std::max(1, light.samples) : 1;
-  // Override with global config if set higher, or just use global config?
-  // TODO.md says "enable soft shadows with sample count" via CLI.
-  // If CLI sets shadow_samples > 0, we should probably use it.
   if (g_config.shadow_samples > 0 && light.light_type == "AREA") {
     samples = g_config.shadow_samples;
   }
@@ -180,7 +152,6 @@ double Raytracer::compute_shadow(const Point& point, const Direction& normal, co
   int sqrt_samples = static_cast<int>(std::sqrt(samples));
   int actual_samples = sqrt_samples * sqrt_samples;
 
-  // Fallback for non-square numbers or if samples < 4
   if (actual_samples == 0) {
     sqrt_samples = 1;
     actual_samples = 1;
@@ -188,18 +159,15 @@ double Raytracer::compute_shadow(const Point& point, const Direction& normal, co
 
   for (int i = 0; i < sqrt_samples; i++) {
     for (int j = 0; j < sqrt_samples; j++) {
-      // Stratified sampling: jitter within grid cell
       double u = (i + random_double()) / sqrt_samples;
       double v = (j + random_double()) / sqrt_samples;
 
-      // Use Light class method
       Point light_pos = light.sample_point(u, v);
 
       Vec3 to_light = light_pos - point;
       double dist = to_light.length();
       Direction dir = to_light / dist;
 
-      // Adaptive epsilon for shadow rays (prevents torus self-intersection)
       double shadow_epsilon = g_config.ray_offset_epsilon;
       if (g_config.use_adaptive_epsilon) {
         shadow_epsilon += point.length() * g_config.adaptive_epsilon_scale;
@@ -210,22 +178,18 @@ double Raytracer::compute_shadow(const Point& point, const Direction& normal, co
       double attenuation = 1.0;
       double current_t = shadow_epsilon;
 
-      // Manual traversal similar to original shadow_attenuation_bvh_at_point
-      // But we need intersect_bvh from Bvh.h
       while (current_t < dist) {
         HitRecord hit;
         Ray shadow_ray_step(point + dir * current_t, dir);
-        double closest_t = dist - current_t;  // Limit search to light distance
+        double closest_t = dist - current_t;
 
-        // Use global/external intersect_bvh from Bvh.h
         if (intersect_bvh(shadow_ray_step, bvh_root.get(), scene, hit, shadow_epsilon, closest_t)) {
-          // Hit something
           if (hit.t < (dist - current_t)) {
             if (hit.material.transparency > 0.0) {
               double opacity = 1.0 - hit.material.transparency;
               attenuation *= (1.0 - opacity);
               current_t += hit.t + shadow_epsilon;
-              if (attenuation < 0.01) break;  // Fully occluded
+              if (attenuation < 0.01) break;
             } else {
               attenuation = 0.0;
               break;
@@ -237,24 +201,17 @@ double Raytracer::compute_shadow(const Point& point, const Direction& normal, co
           break;
         }
       }
-      total_attenuation += (1.0 - attenuation);  // 1.0 = full shadow
+      total_attenuation += (1.0 - attenuation);
     }
   }
   return total_attenuation / actual_samples;
 }
-
-// Independent helper functions for reflection/refraction/fresnel/normal map
-// (These can be static members or private helpers)
 
 static Direction reflect_dir(const Direction& incident, const Direction& normal) {
   return incident - normal * 2.0 * incident.dot(normal);
 }
 
 static double schlick_fresnel(double cosine, double eta_ratio) {
-  // Schlick's approximation for Fresnel reflectance
-  // eta_ratio = n1/n2 (ratio of refractive indices)
-  // For air->glass: eta_ratio = 1.0/1.5 = 0.6667
-  // For glass->air: eta_ratio = 1.5/1.0 = 1.5
   double r0 = (eta_ratio - 1.0) / (eta_ratio + 1.0);
   r0 = r0 * r0;
   return r0 + (1.0 - r0) * std::pow((1.0 - cosine), 5.0);
@@ -270,7 +227,6 @@ static Direction apply_normal_map(const HitRecord& hit, TextureManager& tm) {
     return (hit.tangent * tan_normal.x + hit.bitangent * tan_normal.y + hit.normal * tan_normal.z)
         .norm();
   } else if (g_config.enable_textures && !hit.material.bump_map.empty() && tm.has_texture(hit.material.bump_map)) {
-    // Simplified bump mapping logic
     double delta = 0.001;
     auto get_h = [&](double u, double v) {
       Color c = tm.sample(hit.material.bump_map, u, v);
@@ -294,7 +250,6 @@ ShadingResult Raytracer::shade_separated(const HitRecord& hit, const Direction& 
   if (g_config.enable_textures && hit.material.has_texture && !hit.material.texture_file.empty()) {
     if (g_texture_manager.has_texture(hit.material.texture_file)) {
       Color tex = g_texture_manager.sample(hit.material.texture_file, hit.u, hit.v);
-      // Note: PPM textures are already in linear space, no gamma decode needed
       base_color = tex * hit.material.diffuse_color;
       ambient_color = tex * hit.material.ambient_color;
     }
@@ -317,11 +272,9 @@ ShadingResult Raytracer::shade_separated(const HitRecord& hit, const Direction& 
 
     double n_dot_l = std::max(0.0, shading_normal.dot(L));
     if (n_dot_l > 0.0) {
-      // Compute diffuse component
       Color diffuse = base_color * n_dot_l;
       total_diffuse += Color(diffuse.x * L_in.x, diffuse.y * L_in.y, diffuse.z * L_in.z);
 
-      // Compute specular component (Blinn-Phong)
       Direction halfway = (L + view_dir).norm();
       double n_dot_h = std::max(0.0, shading_normal.dot(halfway));
       if (n_dot_h > 0.0) {
@@ -344,12 +297,9 @@ Color Raytracer::trace(const Ray& ray, int depth) {
   if (depth >= g_config.max_ray_depth) return Color(0, 0, 0);
 
   HitRecord hit;
-  // FIX: Use numeric_limits instead of 1e30 for proper max value
   double t_max = std::numeric_limits<double>::max();
 
-  // FIX: Reduce t_min from 0.001 to 1e-5 to prevent missing valid intersections
-  // on implicit surfaces like torus. The larger epsilon was causing "shattered"
-  // artifacts where valid surface hits were being skipped.
+  // Use small t_min (1e-5) to avoid missing intersections on implicit surfaces like torus
   if (intersect_bvh(ray, bvh_root.get(), scene, hit, 1e-5, t_max)) {
     Direction view_dir = -ray.direction;
 
@@ -454,10 +404,7 @@ Color Raytracer::trace(const Ray& ray, int depth) {
       }
       // Else: dielectric keeps white reflections
 
-      // FIX: Properly blend diffuse, specular, and reflections
-      // - Diffuse is attenuated by (1 - reflectivity)
-      // - Specular highlights remain visible (important for shiny surfaces!)
-      // - Reflections are added with reflectivity weight
+      // Blend diffuse (attenuated by reflectivity), specular, and reflections
       color = shading.diffuse * (1.0 - hit.material.reflectivity)
             + shading.specular
             + reflection_accum * hit.material.reflectivity;
@@ -471,7 +418,7 @@ Color Raytracer::trace(const Ray& ray, int depth) {
       double eta =
           hit.front_face ? (1.0 / hit.material.refractive_index) : hit.material.refractive_index;
 
-      // CRITICAL: hit.normal is ALREADY oriented against the ray by
+      // Note: hit.normal is already oriented against the ray by
       // set_face_normal() Do NOT flip it again! Trust the HitRecord.
       Direction norm = hit.normal;
 
@@ -529,9 +476,6 @@ Image Raytracer::render(const Camera& camera, int width, int height, int samples
   Image output(height, width, 255, "P3");
   g_intersection_tests = 0;
 
-  // Set optimal thread count if not already set
-  // FIX: Removed arbitrary cap - let hardware use all cores or respect
-  // OMP_NUM_THREADS
   if (getenv("OMP_NUM_THREADS") == nullptr) {
     int optimal_threads = std::thread::hardware_concurrency();
     omp_set_num_threads(optimal_threads);
@@ -630,7 +574,6 @@ Image Raytracer::render(const Camera& camera, int width, int height, int samples
     auto row_duration =
         std::chrono::duration_cast<std::chrono::milliseconds>(row_end - row_start).count();
 
-// FIX: Protect progress bar update and CSV write with critical section
 #pragma omp critical(progress_bar)
     {
       if (csv_file.is_open()) {

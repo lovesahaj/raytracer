@@ -61,10 +61,8 @@ void parse_arguments(int argc, char *argv[]) {
       g_config.override_width = std::atoi(argv[++i]);
       g_config.override_height = std::atoi(argv[++i]);
     } else if ((arg == "-w" || arg == "-W") && i + 1 < argc) {
-      // Width only
       g_config.override_width = std::atoi(argv[++i]);
     } else if (arg == "-H" && i + 1 < argc) {
-      // Height only (capital H to avoid conflict with -h/--help)
       g_config.override_height = std::atoi(argv[++i]);
     } else if (arg == "--samples" && i + 1 < argc) {
       g_config.aa_samples = std::atoi(argv[++i]);
@@ -108,7 +106,6 @@ void parse_arguments(int argc, char *argv[]) {
   }
 }
 
-// Main entry point for raytracer
 int main(int argc, char *argv[]) {
   if (argc <= 1) {
     print_help(argv[0]);
@@ -123,7 +120,6 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  // Set log level
   if (g_config.log_level == "debug")
     Logger::instance().SetLevel(Utils::Level::Debug);
   else if (g_config.log_level == "info")
@@ -135,17 +131,7 @@ int main(int argc, char *argv[]) {
   else if (g_config.log_level == "fatal")
     Logger::instance().SetLevel(Utils::Level::Fatal);
 
-  // Load scene
   std::string scene_path = g_config.scene_file;
-  // Handle relative paths assuming they might be in ASCII folder if not found?
-  // For now, strictly follow the provided path or maybe prepend ./ASCII/ if
-  // it's just a name? The previous code did some magic, let's be more explicit
-  // but fallback if needed could be nice. But the spec says "--scene <filename>
-  // - Input ASCII scene file". I will assume the user provides the correct
-  // path.
-
-  // However, if it doesn't exist, we could check ./ASCII/
-  // keeping it simple for now: use provided path.
 
   Scene scene = load_scene(scene_path);
   Logger::instance().Info().Str("path", scene_path).Msg("Loaded scene");
@@ -156,10 +142,8 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  // Make a copy of the camera so we can override settings
   Camera render_camera = scene.cameras[0];
 
-  // Determine resolution
   int width = render_camera.film_resolution_x;
   int height = render_camera.film_resolution_y;
 
@@ -173,12 +157,9 @@ int main(int argc, char *argv[]) {
         .Msg("Overriding resolution");
   }
 
-  // Override depth-of-field settings if flags were provided
   if (g_config.dof_flag_set) {
     if (g_config.lens_aperture > 0.0) {
       render_camera.dof_enabled = true;
-      // Convert lens_aperture to f-stop
-      // If user provides aperture directly, we use it as f-stop
       render_camera.aperture_fstop = g_config.lens_aperture;
       render_camera.focus_distance = g_config.lens_focal_distance;
       Logger::instance()
@@ -194,7 +175,6 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  // Print full configuration before rendering
   Logger::instance()
       .Info()
       .Int("width", width)
@@ -213,7 +193,6 @@ int main(int argc, char *argv[]) {
                                       : std::to_string(g_config.num_threads)))
       .Msg("Render Configuration");
 
-  // Render using global config (wrapper syncs to g_config)
   Image output = render_scene_bvh_antialiased(scene, render_camera, width,
                                               height, g_config.aa_samples,
                                               g_config.shadow_samples);
