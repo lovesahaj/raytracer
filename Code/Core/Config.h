@@ -77,8 +77,7 @@ struct RenderConfig {
 
   // ===== FRESNEL REFLECTANCE =====
 
-  // Enable Schlick's approximation for Fresnel effect on glass
-  bool enable_fresnel = true;
+  // Note: Fresnel effect is always enabled for glass materials
 
   // ===== TEXTURE SAMPLING =====
 
@@ -88,27 +87,15 @@ struct RenderConfig {
   // Texture filtering: "nearest", "bilinear"
   std::string texture_filter = "bilinear";
 
-  // Enable normal mapping
-  bool enable_normal_maps = true;
-
-  // Enable bump mapping
-  bool enable_bump_maps = true;
-
   // ===== SHADOW SETTINGS =====
 
-  // Enable shadows globally
-  bool enable_shadows = true;
-
-  // Shadow transparency (allow light through transparent objects)
-  bool enable_shadow_transparency = true;
+  // Note: Shadows are always enabled (no option to disable)
+  // Shadow transparency (light through transparent objects) is always enabled
 
   // ===== PERFORMANCE =====
 
-  // Enable BVH acceleration structure
-  bool enable_bvh = true;
-
-  // Enable OpenMP parallelization
-  bool enable_parallel = true;
+  // Note: BVH acceleration is always enabled (no brute force fallback)
+  // Note: OpenMP parallelization is always enabled
 
   // Number of threads (0 = auto-detect)
   int num_threads = 0;
@@ -131,9 +118,6 @@ struct RenderConfig {
   bool auto_convert_to_png = true;
 
   // ===== ADVANCED RENDERING =====
-
-  // Enable distributed ray tracing features
-  bool enable_distributed_raytracing = true;
 
   // Depth of field parameters (if camera.dof_enabled)
   int dof_samples = 32;

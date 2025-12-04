@@ -29,12 +29,8 @@ void print_help(const char *program_name) {
       << g_config.aa_samples << ")\n"
       << "  --max-depth <n>          Maximum ray recursion depth (default: "
       << g_config.max_ray_depth << ")\n"
-      << "  --enable-bvh             Enable BVH acceleration (default)\n"
-      << "  --disable-bvh            Disable BVH acceleration\n"
       << "  --enable-textures        Enable texture mapping (default)\n"
       << "  --disable-textures       Disable texture mapping\n"
-      << "  --enable-aa              Enable antialiasing (default)\n"
-      << "  --disable-aa             Disable antialiasing\n"
       << "  --soft-shadows <n>       Enable soft shadows with n samples\n"
       << "  --glossy-reflection <n>  Enable glossy reflections with n samples\n"
       << "  --motion-blur <n>        Enable motion blur with n temporal samples (0 to disable)\n"
@@ -76,19 +72,10 @@ void parse_arguments(int argc, char *argv[]) {
         g_config.aa_samples = 1;
     } else if (arg == "--max-depth" && i + 1 < argc) {
       g_config.max_ray_depth = std::atoi(argv[++i]);
-    } else if (arg == "--enable-bvh") {
-      g_config.enable_bvh = true;
-    } else if (arg == "--disable-bvh") {
-      g_config.enable_bvh = false;
     } else if (arg == "--enable-textures") {
       g_config.enable_textures = true;
     } else if (arg == "--disable-textures") {
       g_config.enable_textures = false;
-    } else if (arg == "--enable-aa") {
-      if (g_config.aa_samples <= 1)
-        g_config.aa_samples = 4;
-    } else if (arg == "--disable-aa") {
-      g_config.aa_samples = 1;
     } else if (arg == "--soft-shadows" && i + 1 < argc) {
       g_config.shadow_samples = std::atoi(argv[++i]);
     } else if (arg == "--glossy-reflection" && i + 1 < argc) {
@@ -220,9 +207,7 @@ int main(int argc, char *argv[]) {
       .Double("lens_aperture", g_config.lens_aperture)
       .Double("lens_focal_distance", g_config.lens_focal_distance)
       .Int("max_ray_depth", g_config.max_ray_depth)
-      .Bool("bvh", g_config.enable_bvh)
       .Bool("textures", g_config.enable_textures)
-      .Bool("shadows", g_config.enable_shadows)
       .Str("threads",
            (g_config.num_threads == 0 ? "Auto"
                                       : std::to_string(g_config.num_threads)))

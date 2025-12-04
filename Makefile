@@ -183,23 +183,8 @@ format:
 init-output:
 	mkdir -p $(OUTPUT_DIR)
 
-# Module 4: Generate all test renders with high quality settings
-test-all: $(TARGET) init-output
-	@echo "=== Generating Module 4 Test Renders ==="
-	@echo "Using high quality settings: 800x600, 32 samples"
-	@echo ""
-	@echo "[1/8] Rendering point light (Test1)..."
-	./$(TARGET) -s $(SCENE_DIR)/Test1.txt -o $(OUTPUT_DIR)/test_point_light.ppm -w 800 -H 600 --samples 32
-	@echo "[2/8] Rendering area light (Test6)..."
-	./$(TARGET) -s $(SCENE_DIR)/Test6.txt -o $(OUTPUT_DIR)/test_area_light.ppm -w 800 -H 600 --samples 32
-	@echo "[3/8] Rendering motion blur (Test5)..."
-	./$(TARGET) -s $(SCENE_DIR)/Test5.txt -o $(OUTPUT_DIR)/test_motion_blur.ppm -w 800 -H 600 --samples 32
-	@echo ""
-	@echo "=== All Test Renders Complete ==="
-	@echo "Output saved to: $(OUTPUT_DIR)/"
-	@echo ""
-	@echo "Generated files:"
-	@ls -lh $(OUTPUT_DIR)/test_*.ppm | awk '{printf "  %-40s %8s\n", $$9, $$5}'
+# Render all test scenes with their optimal settings
+test-all: test-1 test-2 test-3 test-4 test-5 test-6 test-7
 
 # Full workflow: export from Blender and render
 workflow:
@@ -236,22 +221,12 @@ view:
 	@echo "Opening $(BLEND_FILE) in Blender..."
 	$(BLENDER_PATH) $(BLEND_DIR)/$(BLEND_FILE)
 
-# Quick test with lower samples (for faster iteration)
-test-quick: $(TARGET) init-output
-	@echo "=== Quick Test Renders (400x300, 8 samples) ==="
-	@echo ""
-	@echo "[1/2] Soft shadows comparison (Test6)..."
-	./$(TARGET) -s $(SCENE_DIR)/Test6.txt -o $(OUTPUT_DIR)/quick_area_light.ppm -w 400 -H 300 --samples 8
-	@echo "[2/2] Motion blur (Test5)..."
-	./$(TARGET) -s $(SCENE_DIR)/Test5.txt -o $(OUTPUT_DIR)/quick_motion_blur.ppm -w 400 -H 300 --samples 8
-	@echo ""
-	@echo "=== Quick Test Complete ==="
-
-
 test-1: init-output
 	./raytracer --scene ASCII/Test1.txt \
 		--output Output/rendered_bvh_Test1.ppm \
 		--resolution 1920 1080 \
+		--light-intensity 0.02 \
+		--ambient-light 0.8 \
 		--samples 16 \
 		--soft-shadows 4 \
 		--glossy-reflection 4 \
@@ -262,36 +237,42 @@ test-2: init-output
 	./raytracer --scene ASCII/Test2.txt \
 		--output Output/rendered_bvh_Test2.ppm \
 		--resolution 1920 1080 \
-		--samples 16 \
+		--light-intensity 0.008 \
+		--ambient-light 1 \
+		--samples 4 \
 		--soft-shadows 4 \
 		--glossy-reflection 4 \
-		--max-depth 5
+		--max-depth 2
 
 
 test-3: init-output
 	./raytracer --scene ASCII/Test3.txt \
 		--output Output/rendered_bvh_Test3.ppm \
-		--resolution 1920 1080 \
+		--resolution 720 400 \
+		--light-intensity 0.02 \
+		--ambient-light 0.8 \
 		--samples 4 \
 		--soft-shadows 2 \
 		--max-depth 2
 
-		# --glossy-reflection 4 \
-
 test-4: init-output
 	./raytracer --scene ASCII/Test4.txt \
 		--output Output/rendered_bvh_Test4.ppm \
-		--resolution 1280 720 \
-		--samples 16 \
-		--soft-shadows 4 \
-		--glossy-reflection 4 \
-		--max-depth 5
+		--resolution 720 400 \
+		--light-intensity 0.02 \
+		--ambient-light 1 \
+		--samples 4 \
+		--soft-shadows 16 \
+		--glossy-reflection 16 \
+		--max-depth 16
 
 
 test-5: init-output
 	./raytracer --scene ASCII/Test5.txt \
 		--output Output/rendered_bvh_Test5.ppm \
-		--resolution 1920 1080 \
+		--resolution 720 400 \
+		--light-intensity 0.02 \
+		--ambient-light 1 \
 		--samples 4 \
 		--soft-shadows 8 \
 		--glossy-reflection 8 \
@@ -302,7 +283,9 @@ test-5: init-output
 test-6: init-output
 	./raytracer --scene ASCII/Test6.txt \
 		--output Output/rendered_bvh_Test6.ppm \
-		--resolution 1920 1080 \
+		--resolution 720 400 \
+		--light-intensity 0.05 \
+		--ambient-light 1 \
 		--samples 16 \
 		--soft-shadows 4 \
 		--glossy-reflection 4 \
@@ -312,39 +295,12 @@ test-7: init-output
 	./raytracer --scene ASCII/Test7.txt \
 		--output Output/rendered_bvh_Test7.ppm \
 		--resolution 800 400 \
-		--samples 128 \
+		--samples 4 \
+		--light-intensity 0.1 \
+		--ambient-light 1 \
 		--soft-shadows 4 \
 		--glossy-reflection 4 \
 		--max-depth 12
-
-test-all: test-1 test-2 test-3 test-4 test-5 test-6
-
-
-# Ultra high quality for final report (1920x1080, 64 samples)
-test-hq: $(TARGET) init-output
-	@echo "=== Generating Ultra High Quality Test Renders ==="
-	@echo "Resolution: 1920x1080, Samples: 64"
-	@echo "WARNING: This will take a long time!"
-	@echo ""
-	@echo "[1/8] Rendering point light (hard shadows)..."
-	./$(TARGET) -s $(SCENE_DIR)/test_point_light.txt -o $(OUTPUT_DIR)/hq_point_light.ppm -w 1920 -H 1080 --samples 64
-	@echo "[2/8] Rendering area light (soft shadows)..."
-	./$(TARGET) -s $(SCENE_DIR)/test_area_light.txt -o $(OUTPUT_DIR)/hq_area_light.ppm -w 1920 -H 1080 --samples 64
-	@echo "[3/8] Rendering mirror reflection..."
-	./$(TARGET) -s $(SCENE_DIR)/test_glossy_mirror.txt -o $(OUTPUT_DIR)/hq_glossy_mirror.ppm -w 1920 -H 1080 --samples 64
-	@echo "[4/8] Rendering rough reflection..."
-	./$(TARGET) -s $(SCENE_DIR)/test_glossy_rough.txt -o $(OUTPUT_DIR)/hq_glossy_rough.ppm -w 1920 -H 1080 --samples 64
-	@echo "[5/8] Rendering glossy progression..."
-	./$(TARGET) -s $(SCENE_DIR)/test_glossy.txt -o $(OUTPUT_DIR)/hq_glossy_progression.ppm -w 1920 -H 1080 --samples 64
-	@echo "[6/8] Rendering pinhole camera..."
-	./$(TARGET) -s $(SCENE_DIR)/test_dof_pinhole.txt -o $(OUTPUT_DIR)/hq_dof_pinhole.ppm -w 1920 -H 1080 --samples 64
-	@echo "[7/8] Rendering with depth of field..."
-	./$(TARGET) -s $(SCENE_DIR)/test_dof_mid_focus.txt -o $(OUTPUT_DIR)/hq_dof_blur.ppm -w 1920 -H 1080 --samples 64
-	@echo "[8/8] Rendering motion blur..."
-	./$(TARGET) -s $(SCENE_DIR)/test_motion_moving.txt -o $(OUTPUT_DIR)/hq_motion_blur.ppm -w 1920 -H 1080 --samples 64
-	@echo ""
-	@echo "=== Ultra High Quality Renders Complete ==="
-	@echo "Output saved to: $(OUTPUT_DIR)/"
 
 # View output images (macOS)
 view-output:
@@ -384,10 +340,9 @@ help:
 	@echo "  run              - Build and run raytracer"
 	@echo "  benchmark        - Run with timing information"
 	@echo ""
-	@echo "Module 4 Test Targets:"
-	@echo "  test-quick       - Quick test renders (400x300, 8 spp) - ~2 min"
-	@echo "  test-all         - High quality test renders (800x600, 32 spp) - ~10 min"
-	@echo "  test-hq          - Ultra HQ for report (1920x1080, 64 spp) - ~1 hour"
+	@echo "Test Targets:"
+	@echo "  test-1 to test-7 - Render individual test scenes with optimal settings"
+	@echo "  test-all         - Render all test scenes (test-1 through test-7)"
 	@echo ""
 	@echo "Workflow Targets:"
 	@echo "  workflow         - Full workflow: export → build → render"
@@ -404,12 +359,12 @@ help:
 	@echo ""
 	@echo "Examples:"
 	@echo "  make                    # Build raytracer"
-	@echo "  make test-quick         # Generate all test renders (fast)"
-	@echo "  make test-all           # Generate high quality test renders"
+	@echo "  make test-1             # Render Test1 scene"
+	@echo "  make test-all           # Render all test scenes"
 	@echo "  make workflow           # Export, build, and render"
 	@echo "  make export             # Export Test1.blend (default)"
 	@echo "  make export BLEND_FILE=my.blend # Export specific file"
 	@echo "  make clean all          # Clean rebuild"
 	@echo "  make debug              # Debug build"
 
-.PHONY: all debug clean run render workflow benchmark check format init-output view-output info help test-all test-quick test-hq export export-all view
+.PHONY: all debug clean run render workflow benchmark check format init-output view-output info help test-all test-1 test-2 test-3 test-4 test-5 test-6 test-7 export export-all view convert

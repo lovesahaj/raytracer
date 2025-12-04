@@ -12,7 +12,7 @@
 )
 
 #set text(
-  font: "Linux Libertine",
+  font: "New Computer Modern",
   size: 11pt,
   hyphenate: false,
 )
@@ -53,7 +53,7 @@
   inset: (x: 3pt, y: 0pt),
   outset: (y: 3pt),
   radius: 2pt,
-  text(fill: rgb("#333333"), it)
+  text(fill: rgb("#333333"), it),
 )
 
 #show quote: it => block(
@@ -95,231 +95,119 @@
 
 = Implemented Features
 
-== Module 1: Foundation (100% Complete)
+== Ray Object Intersection
 
-=== Vector Mathematics Library (*File:* `Code/vector.h`)
-Generic template-based vector class: `Vec<N>` for arbitrary dimensions with specialized `Vec<3>` including x/y/z and r/g/b accessors, full operator overloading, dot/cross products, length, normalization. AI extended Vec3 to generic Vec<N>; manually added color accessors.
+Complete intersection testing is implemented for multiple object types, including full support for transformations.
 
-=== Camera & Coordinate Transforms (*Files:* `Code/models.h`, `Code/image_utils.h`)
-Camera struct with location, gaze, up, focal length, sensor size, resolution. `image_to_world_coordinates()` performs Pixel→NDC→Camera→World transformation with orthonormal basis.
+#linebreak()
 
-=== PPM Image I/O (*File:* `Code/image.h`)
-Reader/writer for ASCII (P3) and binary (P6) PPM formats with comment handling, byte-to-double conversion (0-255 → 0.0-1.0), clamping, and error handling. Modified AI code from `vector<vector<char>>` to `Vec<Vec<Pixel>>`.
+*Supported Shapes*:
+1. Sphere: Quadratic solver [@fig:test1]
+2. Cube: AABB slab method [@fig:test2]
+3. Plane: Bounded plane with normal-based intersection [@fig:test1]
+4. Cylinder: Body and cap intersection with bound checking [@fig:test4]
+5. Cone: Quadratic intersection with height constraints [@fig:test4]
+6. Torus: Quartic solver with Newton-Raphson refinement [@fig:test4]
 
-=== Scene Parser (*Files:* `Code/scene_parser.cpp`, `Code/scene_utils.h`)
-Parses custom text format with `load_scene()` supporting cameras, lights, and primitives (Spheres, Cubes, Planes, Toruses, Cylinders) using `std::istringstream`.
+#linebreak()
 
-=== Blender Exporter (*File:* `Blend/Export.py`)
-Python script exporting Blender scenes to custom format with object type detection, camera transformations, and matrix conversions. Enhanced to check `obj.name` and `obj.data.name` with automatic directory creation.
+All shapes are defined as unit primitives and are transformed using TRS (Translation-Rotation-Scale) matrices.
 
-=== Build System (*File:* `Code/Makefile`)
-Standard g++ Makefile with dependencies and clean target.
+== Material System
 
-#pagebreak()
+The material system utilizes Blinn-Phong shading with physically-based extensions.
 
-== Module 2: Raytracing (100% Complete)
-#quote([
-  Changes from the Previous Module:
-  #enum([The transformation information for spheres was not incorporated into the previous module, so this had to be modified and added.],
-  [Added a new constructor for the Image class for empty images.])
-])
+- Diffuse (Lambertian): Base color with texture support [@fig:test1]
+- Specular/Reflective: Blinn-Phong highlights [@fig:test7]
+- Glossy reflection: Importance-sampled rough reflections [@fig:test6]
+- Refractive/Transparent: Snell's law with Fresnel equations [@fig:test6]
+- Emissive: Self-illuminating materials [@fig:test4]
 
-=== Ray Shape Intersection (*Files:* `Code/shapes.h`, `Code/shapes.cpp`)
-Implemented intersection tests for three primitive types using a transformation-based approach.
+#linebreak()
 
-  - *Sphere*: Transforms the ray to object space where the sphere always has unit radius (r=1) at the origin, solves the quadratic equation at²+2bt+c=0 using the discriminant, and finds the nearest valid intersection.
-  - *Cube*: Uses the AABB slab method, testing the ray against three pairs of parallel planes (-0.5 to 0.5 per axis), tracks near/far t values, and determines the hit face by comparing intersection point coordinates with a tolerance threshold.
-  - *Plane*: Computes the normal via cross product of edge vectors from the first three points, calculates the intersection using the plane equation, and validates that the hit is within the rectangular bounds defined by all points.
-  - All methods transform the results back to world space.
+Reflections are colored by the base texture for metallic surfaces (the color difference is visible in [@fig:test2]). Additionally, an emission strength threshold is employed to bypass Blinn-Phong shading for strong emitters.
 
-=== Transformation System (*Files:* `Code/transform.h`, `Code/transform.cpp`)
-Implemented 4x4 transformation matrices with the `Mat4` struct supporting multiplication and point/direction/normal transforms. The `Transform` class manages bidirectional object #sym.arrow.l.r world conversions by storing both forward and inverse matrices. Factory methods `from_trs()` and `from_trs_nonuniform()` compose Scale→Rotate→Translate matrices. Matrix inversion is performed via Gaussian elimination with pivoting. Normal transformation uses the transpose of the inverse $(M^(-1))^T$. Bounding box transformation converts all 8 corners to world space and recomputes axis-aligned bounds.
+== Lighting
 
-=== Hit Record Structure (*File:* `Code/hit_record.h`)
-A data structure that stores ray intersection results: `intersection_point` (position), `normal` (surface normal), `t` (ray parameter distance), and `front_face` (boolean for outside/inside hit detection).
+The lighting system supports area lights, soft shadows, and physically-based falloff.
 
-=== BVH Implementation (*Files:* `Code/bvh.h`, `Code/bvh.cpp`)
- - A spatial acceleration structure using a binary tree with axis-aligned bounding boxes. Each `BVHNode` is either internal (with left/right children) or a leaf (containing object indices).
- - Build process: computes the bounding box for the object set, splits at the median along the longest axis (X/Y/Z), and recurses until MAX_LEAF_SIZE or MAX_DEPTH is reached.
- - Traversal tests ray-box intersection first; skips a subtree if missed, and early-exits from a leaf if no objects are hit. Maintains closest_t to find the nearest intersection.
- - Object indexing: [0..n_spheres-1] = spheres, [n_spheres..n_spheres+n_cubes-1] = cubes, [remaining] = planes.
+#linebreak()
 
-=== Rendering Pipeline (*Files:* `Code/raytracer.h`, `Code/raytracer.cpp`)
- - `generate_camera_ray()`: Transforms from Pixel #sym.arrow.r NDC #sym.arrow.r Sensor #sym.arrow.r World space.
- - `intersect_scene()`: Brute-force O(n) approach that tests all primitives.
- - `intersect_bvh()`: Recursive BVH traversal with bounding box culling for accelerated intersection testing.
- - `ray_color()`: Simple shading that maps surface normals to RGB colors (normal.xyz → 0.5\*(normal+1)).
- - `render_scene()` and `render_scene_bvh()`: Main rendering loops that generate rays per pixel and track intersection test counts for performance comparison.
+*Light Types Supported*:
+- Point light [@fig:test1]
+- Area light [@fig:test6]
+- Spot light [@fig:test6]
+- Emissive materials [@fig:test5]
 
+Intensity falloff follows the inverse square law, and soft shadows are rendered using stratified sampling.
 
-#pagebreak()
+== Acceleration Structure
 
+A Bounding Volume Hierarchy (BVH) with median-split partitioning accelerates intersection tests. The BVH also supports temporal bounding boxes to facilitate motion blur [@fig:test7].
 
-== Module 3: Whitted-Style Raytracing (100% Complete)
-#quote([
-  Changes from the Previous Module:
-  #enum([Extended HitRecord to include UV coordinates for texture mapping.],
-  [Added Material struct with comprehensive properties: diffuse, specular, ambient, shininess, reflectivity, transparency, and refractive index.],
-  [Updated scene parser to parse material properties and texture files from ASCII scene files.],)
-])
+== Texture Mapping
 
-=== Whitted-Style Recursive Raytracing (*Files:* `Code/raytracer.cpp`, `Code/raytracer.h`)
+Bilinear-filtered texture sampling with UV coordinates is implemented for all shapes. In-memory caching is used to eliminate redundant disk reads for textures.
 
-The rendering pipeline implements the full Whitted-style raytracing algorithm with recursive reflection and refraction.
+UV coordinates are generated for all shapes; specifically, the torus uses toroidal coordinates ($phi$ around the major radius, $theta$ around the minor radius). Bilinear filtering provides smooth texture interpolation. A V-flip correction accounts for the image coordinate system, and UV clamping ensures textures are stretched rather than repeated.
 
-*Ray Generation & Scene Traversal*
-- Primary rays generated via `generate_camera_ray()` performing Pixel→NDC→Sensor→World transformation
-- `ray_color()` and `ray_color_bvh()` handle recursive ray tracing with maximum depth of 5 bounces
-- Intersection testing uses both brute-force (`intersect_scene()`) and BVH-accelerated (`intersect_scene_bvh()`) methods
+== Motion Blur [@fig:test5]
 
-*Shading Model: Composite BRDF*
-The `blinn_phong_shading()` function implements a physically-based composite BRDF combining:
-- *Diffuse component $f_d$*: Lambertian BRDF 
-- *Specular component $f_s$*: Blinn-Phong BRDF 
-- *Final shading equation*: $L_"out" = (f_d + f_s) dot L_"in" dot (N dot L)$ per light source
-- *Ambient term*: $L_"ambient" = k_a dot 0.3$ for global illumination approximation
+Motion blur simulates object movement during exposure by sampling rays at random points in time.
 
-*Lighting & Shadows*
-- Point lights with inverse-square falloff: $L_"in" = I dot "color" / d^2$
-- Hard shadows via shadow rays tested with `is_in_shadow_bvh()`
-- Shadow rays offset by 0.001 units along light direction to prevent self-intersection
-- Multiple light sources accumulated additively
+=== Implementation Details
+- Ray struct includes a time parameter [0, 1].
+- Matrix-based interpolation is used for transformations (TRS decomposition + SLERP).
+- Temporal bounding boxes are implemented for BVH efficiency.
 
-*Recursive Ray Tracing*
-- *Reflection*: Perfect mirror reflection computed via $R = I - 2(I dot N)N$, weighted by material reflectivity $k_r$
-- *Refraction*: Snell's law implementation with $η_1 sin θ_1 = η_2 sin θ_2$, handling total internal reflection, weighted by transparency $k_t$
-- *Color blending*: $"Color" = w_"local" dot L_"local" + k_r dot L_"refl" + k_t dot L_"refr"$ where $w_"local" = 1 - k_r - k_t$
-- Refracted rays tinted with material diffuse color and brightness-boosted (2×) to compensate for dark backgrounds
+== Depth of Field [@fig:test7]
 
-*Gamma Correction & Output*
-- Gamma correction with $γ = 2.2$: $"Color"_"out" = "Color"_"linear"^(1/2.2)$
+A thin lens camera model with aperture and focal distance control is implemented. Points are randomly sampled on the lens aperture disk, and all rays pass through a specific point on the focal plane to ensure sharp focus. Uniform disk sampling produces circular bokeh effects.
 
-=== Antialiasing (*Files:* `Code/raytracer.cpp`)
+CLI: `--depth-of-field <aperture> <focal_distance>`
 
-Implemented stochastic supersampling antialiasing to reduce jagged edges and improve image quality.
+== Soft Shadows [@fig:test6]
 
-*Multi-Sampling Strategy*
-- `render_scene_bvh_antialiased()` implement multi-sampling with configurable samples per pixel
-- Random jittering within each pixel: offset sampled uniformly in [0, 1] via `random_double()`
-- Ray generation with subpixel offsets: $(x + r_x) / "width"$ and $(y + r_y) / "height"$ where $r_x, r_y$ ~ Uniform(0, 1)
+Stratified sampling of area light sources produces realistic soft shadows. Square, rectangle, and disk area lights are supported. Shadows remain transparent when casting through glass objects.
 
-*Sample Accumulation*
-- Colors accumulated across all samples: $"Color"_"pixel" = 1/N sum_(i=1)^N "Color"_i$
+CLI: `--soft-shadows <samples>`
 
-=== Texture Mapping (*Files:* `Code/texture.h`, `Code/texture.cpp`, `Code/shapes.cpp`, `Code/models.h`)
+== Glossy Reflections
 
-Implemented UV texture mapping with procedural coordinate generation for all primitive types.
+Importance-sampled rough surface reflections use a power-cosine distribution.
 
-*UV Coordinate Generation*
-The intersection routines in `shapes.cpp` populate `HitRecord.u` and `HitRecord.v` with surface parameterization for each respective shape.
+CLI: `--glossy-reflection <samples>`
 
-*Texture Manager System*
-`TextureManager` class provides centralized texture loading and sampling.
-
-*Texture Sampling*
-`sample(filename, u, v)` performs bilinear texture lookup:
-- UV wrapping: $u' = u - ⌊u⌋$ and $v' = v - ⌊v⌋$ to repeat textures
-- Pixel coordinate conversion: $x = u' × ("width" - 1)$, $y = v' × ("height" - 1)$
-
-*Material Integration*
-In `blinn_phong_shading()`:
-- Base color source: texture color if `material.has_texture`, otherwise `material.diffuse_color`
-- Texture modulation: $"Color"_"final" = "Color"_"texture" × "Color"_"material"$ allowing material-based tinting
-
+Glossiness values of 1.0 represent perfect mirrors, while values below 0.94 represent rough or diffuse objects. Importance sampling reduces noise, and the recursion depth is limited to 2 to prevent exponential ray explosion. Glossy reflections are colored by the base material color.
 
 #pagebreak()
 
 == Test Results
 
-=== Module 1
+The following figures display the rendered outputs from the raytracer for all seven test scenes.
 
-Successfully loads scenes (`ASCII/def_scene.txt`, `Blend/*.blend`), reads PPM images, generates/exports ray directions. Camera transforms validated via Blender visualization. 
-
-=== Module 2
-
-The BVH acceleration structure achieves an 8.96× speedup in render time (2.83s → 0.32s) while reducing intersection tests by 11.7× (21.0 → 1.79 tests per ray). Both methods produce visually identical results, with 707K ray hits out of 2.07M rays cast.
-
-#figure(
-  table(
-    columns: 3,
-    align: (left, right, right),
-    table.header(
-      [*Metric*], [*Brute Force*], [*BVH*],
+#for i in range(1, 8) [
+  #figure(
+    grid(
+      columns: (1fr, 1fr),
+      gutter: 1em,
+      figure(
+        image("Output/expected" + str(i) + ".png", width: 100%),
+        caption: [Expected Output],
+        numbering: none,
+      ),
+      figure(
+        image("Output/rendered_bvh_Test" + str(i) + ".png", width: 100%),
+        caption: [Rendered Output],
+        numbering: none,
+      ),
     ),
-    [Resolution], [1920×1080], [1920×1080],
-    [Total Rays], [2,073,600], [2,073,600],
-    [Total Time], [2,831 ms], [316 ms],
-    [Ray Hits], [707,259 (34.1%)], [707,258 (34.1%)],
-    [Intersection Tests], [43,545,600], [3,708,325],
-    [Tests per Ray], [21.0], [1.79],
-    [Speedup], [1.0×], [*8.96×*],
-    [Test Reduction], [—], [*11.7×*],
-  ),
-  caption: [Performance comparison between brute force and BVH rendering methods]
-)
+    // FIXED LINE BELOW:
+    caption: [Comparison of render outputs for #("Test" + str(i) + ".blend")],
+  ) #label("fig:test" + str(i))
 
-
-#figure(
-  grid(
-    columns: (1fr, 1fr),
-    gutter: 2em,
-    figure(
-      image("../Output/rendered.jpg", width: 100%),
-      caption: [Output of the brute force render.],
-      numbering: none,
-    ),
-    figure(
-      image("../Output/rendered_bvh.jpg", width: 100%),
-      caption: [Output of the BVH render.],
-      numbering: none,
-    ),
-  ),
-  caption: [Comparison of render outputs using the Test1.blend file.],
-)
-
-=== Module 3
-
-Here are the results from the ray-tracer for the 3 test scene. 
-#figure(
-  grid(
-    columns: (3fr, 3fr),
-    gutter: 2em,
-    figure(
-      image("../Output/expected1.png", width: 100%),
-      caption: [Expected Output of Test1.blend],
-      numbering: none,
-    ),
-    figure(
-      image("../Output/rendered_bvh1.png", width: 100%),
-      caption: [Rendered Output of Test1.blend],
-      numbering: none,
-    ),
-    figure(
-      image("../Output/expected2.png", width: 100%),
-      caption: [Expected Output of Test2.blend],
-      numbering: none,
-    ),
-    figure(
-      image("../Output/rendered_bvh2.png", width: 100%),
-      caption: [Rendered Output of Test2.blend],
-      numbering: none,
-    ),
-    figure(
-      image("../Output/expected3.png", width: 100%),
-      caption: [Expected Output of Test3.blend],
-      numbering: none,
-    ),
-    figure(
-      image("../Output/rendered_bvh3.png", width: 100%),
-      caption: [Rendered Output of Test2.blend],
-      numbering: none,
-    ),
-  ),
-  caption: [Comparison of render outputs using the test files.],
-)
-
-
-#pagebreak()
+  #linebreak()
+]
 
 = Module Completion Status
 
@@ -327,42 +215,129 @@ Here are the results from the ray-tracer for the 3 test scene.
   table(
     columns: 3,
     align: (left, center, left),
-    table.header(
-      [*Module/Topic*], [*%*], [*Description*],
-    ),
-    [*Module 1*], [*100*], [*Foundation*],
-    [Vector Math], [100], [Generic Vec<N> with operations],
-    [Camera Class], [100], [Camera model + transformations],
-    [Coordinate Transforms], [100], [Pixel→NDC→Camera→World],
-    [PPM I/O], [100], [P3/P6 reader/writer],
-    [Scene Parser], [100], [All object types supported],
+    table.header([*Module/Topic*], [*%*], [*Description*]),
+    [*Module 1*], [*100*], [],
     [Blender Exporter], [100], [Python export script],
-    [Build System], [100], [Makefile],
-    [*Module 2*], [*100*], [*Ray Tracing*],
-    [Sphere Intersection], [100], [Using ray and sphere equations],
-    [Plane Intersection], [100], [Points #sym.arrow Plane Eqn (+ Ray Eqn) #sym.arrow Point of intersection],
-    [Cube Intersection], [100], [AABB method for cube intersection],
-    [Transformation support for shapes], [100], [Transformation system using 4x4 matrices],
-    [Bounding Box support], [100], [Every shape can produce a bounding box],
-    [BVH Implementation], [100], [BVHNode hierarchical structure with traversal],
-    [Rudimentary Rendering], [100], [Using BVH and sequential approaches to render objects in the scene],
-    [*Module 3*], [*100*], [*Whitted-Style Raytracing*],
-    [Whitted-style raytracing], [100], [Recursive reflection and refraction with Blinn-Phong shading],
-    [Composite BRDF], [100], [Lambertian diffuse + Blinn-Phong specular components],
-    [Shadow rays], [100], [Hard shadows with shadow ray testing],
-    [Material system], [100], [Full material properties: diffuse, specular, ambient, reflectivity, transparency, IOR],
-    [Antialiasing], [100], [Stochastic supersampling with configurable samples per pixel],
-    [Texture mapping], [100], [UV coordinate generation for all primitives with TextureManager],
+    [Camera Space], [100], [Pin-hole camera with proper transformations],
+    [Image R/W], [100], [PPM reader and writer],
+    [*Module 2*], [*100*], [],
+    [Ray Intersection], [100], [Sphere/Cube/Plane],
+    [BVH Implementation], [100], [BVH hierarchical structure with traversal],
+    [*Module 3*], [*100*], [],
+    [Whitted-style raytracing], [100], [Recursive reflection and refraction],
+    [Antialiasing], [100], [Multi-sample AA (configurable)],
+    [Texture mapping], [100], [UV mapping with bilinear filtering],
+    [*Final Raytracer*], [*100*], [],
+    [System Integration], [100], [CLI args, modular architecture],
+    [Distributed RT], [100], [Soft shadows + glossy reflection],
+    [Lens Effects], [100], [Motion blur + depth of field],
+    [*Exceptionalism*], [*100*], [],
+    [Ray Intersection for Complex Objects], [100], [Cone/Cylinder/Torus],
+    [Parallelization], [100], [OpenMP support],
+    [Structured Logging], [100], [Custom logger inspired by Zerolog],
+    [Thread-safe progress bar], [100], [`tqdm`-style progress bar with dynamic prediction],
   ),
-  caption: [Completion Overview]
+  caption: [Completion Overview],
 )
 
 #v(0.6em)
 
 = Timeliness Bonus Justification
 
-All Module 1 features have been implemented and checkpointed. Testing was performed using the Lab 2 ray visualization script in Blender with ray-to-cylinder conversion.
+All Module 1 features were implemented and checkpointed. Testing was performed using the Lab 2 ray visualization script in Blender with ray-to-cylinder conversion. _(17th October, 2025)_
 
-All Module 2 features have been implemented, and the details of their implementation are documented. An empirical test was performed using both the BVH and brute force techniques to verify the output of the raytracer.
+All Module 2 features were implemented, and the details of their implementation were documented. An empirical test was performed using both BVH and brute-force techniques to verify the raytracer's output. _(31st October, 2025)_
 
-All Module 3 features have been implemented and checkpointed. The Whitted-style raytracing system includes recursive reflection/refraction (max depth 5), composite BRDF shading (Lambertian + Blinn-Phong), hard shadows via shadow rays, full material system (diffuse, specular, ambient, reflectivity, transparency, IOR), stochastic supersampling antialiasing with configurable samples, and UV texture mapping for all primitive types with a centralized TextureManager. 
+All Module 3 features were implemented and checkpointed. The Whitted-style raytracing system includes recursive reflection/refraction (max depth 5), composite BRDF shading (Lambertian + Blinn-Phong), hard shadows via shadow rays, a full material system (diffuse, specular, ambient, reflectivity, transparency, IOR), stochastic supersampling antialiasing with configurable samples, and UV texture mapping for all primitive types with a centralized TextureManager. _(21st November, 2025)_
+
+All Module 4 features were implemented. These include distributed raytracing with area lights (rectangular, disk) using stratified grid sampling for soft shadows, glossy reflections using power-cosine importance sampling, motion blur via temporal interpolation, and depth of field with a thin lens camera model. Additionally, a comprehensive CLI interface and multithreaded processing (using OpenMP) were implemented.
+
+= Exceptional Features
+
+== Torus/Cylinder/Cone Intersection [@fig:test7]
+
+The torus implementation required solving the quartic polynomial equation for ray-torus intersection, going beyond basic geometric primitives. This involved using Ferrari's method (for the quartic equation), cubic resolvent solving (for the cubic arising from Ferrari's method), and Newton-Raphson refinement (to ensure the hit point lies exactly on the surface).
+
+While the coursework only required basic primitives (cube, sphere, plane), I chose to implement a mathematically complex surface to deepen my understanding of intersection algorithms.
+
+In addition to the torus, I also implemented intersections for cylinders and cones, which required solving quadratic equations with additional calculus for the cone.
+
+=== Technical Challenges
+
+#enum(
+  [*Quartic Solver Instability*: Initially, I used floating-point precision, which produced NaN values. Switching to `long double` resolved this issue.],
+  [*Noisy Roots*: Quartic roots had errors of approximately $10^(-4)$, causing visible artifacts. This was solved using Newton-Raphson refinement with 3-5 iterations.],
+  [*Fast-Math Incompatibility*: The `-ffast-math` compilation flag, which does not support infinites, broke the NaN checks in the quartic solver. This flag had to be removed from the compilation process.],
+)
+
+== OpenMP Multithreading with Progress Tracking
+
+Parallel rendering with dynamic load balancing and thread-safe progress reporting was implemented. This was primarily a quality-of-life improvement, as tracking render progress was difficult, and multithreading provided approximately an 8x speed boost on my personal laptop.
+
+Using dynamic estimated time prediction, I implemented a Python `tqdm`-style progress bar to visualize the render status. This is thread-safe and utilizes lock-free atomic counting from multiple threads to track progress. To predict the ETA correctly and prevent jitteriness, I used Exponential Moving Averages.
+
+== Structured Logger (Zerolog inspired)
+
+I implemented a custom thread-safe structured logging system, inspired by Go's Zerolog library. The logger uses chainable method calls, e.g., `Logger::instance().Info().Str("key", "value").Msg("message")`—and utilizes RAII-based locking with mutexes to prevent interleaved outputs from parallel threads. There is also support for multiple log levels (Debug, Info, Warn, Error) via a `log_level` configuration.
+
+= Reflection on Coding Assistants
+
+== Usefulness
+
+I utilized Claude Code and Gemini 3 for the coursework, and they proved highly effective. They excelled at producing boilerplate code for mathematical operations (vectors, matrix transformations) and observability features like the tqdm-inspired progress bar and the zerolog-inspired logging system. For complex algorithms (BVH builder, torus quartic solver), they provided a solid starting point, though refinement was necessary.
+
+The most helpful aspect was providing renders to the AI assistant and asking it to identify differences in the images. This helped me discover minute details about BSDF and physically-based rendering, such as why my colors didn't match the expected renders or why the torus intersection was producing artifacts. This expedited debugging, as I knew exactly where to look for bugs.
+
+Finally, AI was most useful for making code more modular. Until Module 3, all my code was in one directory of `.h` and `.cpp` files, with all shapes using a single file for intersection. With a plan and Claude Code's help, I refactored the code and reached a working state in approximately 2 hours (a task which otherwise would have taken close to a day).
+
+== Weaknesses
+
+These AI systems proved poor at understanding numbers and showed significant limitations when I was debugging the torus artifact bug. Additionally, during OpenMP integration, Claude Code introduced a bug where the BVH root node was different across threads, resulting in images containing only the background color. This bug was especially difficult to debug because the BVH builder was working correctly and producing the expected output, but the BVH nodes passed to the raytracer were empty.
+
+== Example of Prompts
+
+=== Torus Intersection
+
+#quote(
+  [Implement a ray-torus intersection in C++ using surface equation. The torus has the following struct:
+    ```cpp
+    struct Torus : Shape {
+      Point location;
+      Point rotation;
+      Vec3 scale{1.0, 1.0, 1.0};
+      double major_radius{};
+      double minor_radius{};
+    };
+    ```
+    We need to return the closest intersection point and normal vector at the point of intersection.
+  ],
+)
+
+The generated code implemented the quartic equation and Ferrari's method using `float` precision.
+
+The following modifications were required:
+1. Changed all `float` to `long double` for numerical stability.
+2. Added Newton-Raphson refinement to achieve better tolerances.
+3. Added NaN checks.
+
+=== BVH Construction
+
+#quote(
+  [Implement a BVH for ray tracing acceleration. Use AABB for bounding boxes.],
+)
+
+Basic BVH recursive partitioning and AABB intersection were generated. However, I had to add temporal bounding boxes for motion blur, configuration for `MAX_LEAF_SIZE` and `MAX_DEPTH` parameters, and BVH statistics for debugging.
+
+=== OpenMP Parallelization
+
+#quote(
+  [
+    Write a thread-safe C++17 structured logger class that mimics the API style of Golang's 'zerolog'. It should use a fluent, chainable interface (e.g., `log.Info().Str("key", "val").Msg("message")`).
+
+    Requirements:
+    - Levels: Support Debug, Info, Warn, Error.
+    - No External Deps: Use only the C++ Standard Library.
+  ],
+)
+
+The result was a mostly correct logger, but the output was in JSON format (the default for zerolog), and the implementation was not thread-safe. I had to make changes to ensure thread safety and format the output as: `[TIME] [LEVEL] Message key=value key=value`.
